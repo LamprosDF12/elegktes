@@ -50,18 +50,23 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 🔥 NEW LAYOUT FIX */
+/* 🔥 FLEX ROW FIX */
 .card-header {
   display: flex;
-  align-items: center;
+  align-items: stretch; /* σημαντικό για ίδιο ύψος */
   gap: 15px;
 }
 
+/* 🔥 BIGGER LOGO */
 .logo {
-  width: 100px;
+  width: 140px;
+  height: auto;
+  object-fit: contain;
   flex-shrink: 0;
+  display: block;
 }
 
+/* RIGHT SIDE FULL HEIGHT */
 .card-info {
   display: flex;
   flex-direction: column;
@@ -70,15 +75,17 @@ body {
 
 .name {
   font-weight: bold;
+  font-size: 16px;
 }
 
 .code {
   color: #555;
   font-size: 14px;
+  margin-top: 2px;
 }
 
 .info {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 14px;
   line-height: 1.4;
 }
@@ -97,7 +104,7 @@ body {
   background: #2980b9;
 }
 
-/* MODAL FULLSCREEN */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -146,8 +153,6 @@ body {
 </div>
 
 <div class="container">
-
-<!-- 20 CARDS -->
 
 <script>
 const data = [
@@ -234,4 +239,3 @@ function searchFunction() {
 
 </body>
 </html>
-
