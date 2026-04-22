@@ -40,7 +40,7 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* LEFT COLUMN */
+/* LEFT SIDE */
 .left {
   width: 130px;
   display: flex;
@@ -50,7 +50,6 @@ body {
 
 .logo {
   width: 120px;
-  height: auto;
 }
 
 .btn {
@@ -64,31 +63,30 @@ body {
   font-size: 12px;
 }
 
-/* RIGHT COLUMN (aligned to logo top) */
+/* RIGHT SIDE */
 .info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
-/* NAME centered only horizontally */
+/* NAME */
 .name {
   font-weight: bold;
   font-size: 16px;
-  text-align: left;
+  width: 100%;
 }
 
-/* CODE centered UNDER name */
+/* CODE (FIXED LEFT ALIGN) */
 .code {
   font-size: 12px;
   color: #777;
-  text-align: center;   /* 🔥 όπως ζήτησες */
-  width: 100%;          /* πιάνει όλη τη δεξιά στήλη */
   margin-top: 2px;
+  width: 100%;
+  text-align: left;   /* 🔥 ΣΩΣΤΟ */
 }
 
-/* CONTACT aligned left (right column alignment) */
+/* CONTACT */
 .contact {
   margin-top: 8px;
   font-size: 14px;
@@ -154,7 +152,12 @@ const data = [
 ["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
 ["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
-["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"]
+["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
+["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
+["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
+["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -188,11 +191,12 @@ data.forEach(e => {
 function openModal() {
   document.getElementById("modal").classList.add("show");
 }
+
 function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
-/* click outside */
+/* close outside */
 document.getElementById("modal").addEventListener("click", e => {
   if (e.target.id === "modal") closeModal();
 });
