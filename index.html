@@ -20,6 +20,19 @@ body {
   text-align: center;
 }
 
+.search-box {
+  padding: 15px;
+  text-align: center;
+}
+
+.search-box input {
+  width: 90%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -35,7 +48,6 @@ body {
   border-radius: 10px;
   display: flex;
   gap: 20px;
-  align-items: flex-start;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
@@ -53,11 +65,11 @@ body {
 .btn {
   margin-top: 8px;
   padding: 6px 10px;
-  background: #27ae60; /* πράσινο για διαφοροποίηση */
+  background: #3498db;
   color: white;
+  border: none;
   border-radius: 5px;
-  text-decoration: none;
-  font-size: 12px;
+  cursor: pointer;
 }
 
 .info {
@@ -66,18 +78,15 @@ body {
 
 .name {
   font-weight: bold;
-  font-size: 16px;
 }
 
 .code {
   font-size: 12px;
   color: #777;
-  margin-top: 2px;
 }
 
 .contact {
   margin-top: 10px;
-  line-height: 1.6;
 }
 
 a {
@@ -85,8 +94,36 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+/* MODAL SAFE */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal img {
+  max-width: 95%;
+  max-height: 95%;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
 }
 </style>
 
@@ -96,7 +133,18 @@ a:hover {
 
 <div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="search()">
+</div>
+
 <div class="container" id="container"></div>
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img src="apofasi_orismou.jpg">
+</div>
 
 <script>
 
@@ -133,11 +181,7 @@ data.forEach(e => {
   card.innerHTML = `
     <div class="left">
       <img src="eetaa_logo.png" class="logo">
-
-      <!-- 🔥 SAFE BUTTON -->
-      <a class="btn" href="apofasi_orismou.jpg" target="_blank">
-        Απόφαση
-      </a>
+      <button class="btn" onclick="openModal()">Απόφαση</button>
     </div>
 
     <div class="info">
@@ -154,6 +198,29 @@ data.forEach(e => {
   container.appendChild(card);
 });
 
+/* SEARCH FIXED */
+function search() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display = card.innerText.toLowerCase().includes(input) ? "flex" : "none";
+  });
+}
+
+/* MODAL */
+function openModal() {
+  document.getElementById("modal").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+  document.body.style.overflow = "auto";
+}
+
+/* CLICK OUTSIDE */
+document.getElementById("modal").addEventListener("click", function(e) {
+  if (e.target.id === "modal") closeModal();
+});
 </script>
 
 </body>
