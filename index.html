@@ -18,7 +18,6 @@ body {
   color: white;
   padding: 15px;
   text-align: center;
-  font-size: 18px;
 }
 
 .search-box {
@@ -31,7 +30,6 @@ body {
   max-width: 500px;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
 /* CONTAINER */
@@ -56,15 +54,32 @@ body {
   transition: 0.3s;
 }
 
-/* LOGO BIG */
-.logo {
+/* LEFT */
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 140px;
-  object-fit: contain;
-  flex-shrink: 0;
 }
 
-/* INFO */
-.card-info {
+.logo {
+  width: 120px;
+  object-fit: contain;
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* RIGHT */
+.info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,37 +87,19 @@ body {
 
 .name {
   font-weight: bold;
-  font-size: 16px;
 }
 
 .code {
-  color: #555;
-}
-
-.info {
-  margin-top: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.btn {
-  margin-top: 10px;
-  padding: 8px 12px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  color: #666;
 }
 
 /* HIGHLIGHT */
 .highlight {
   border: 3px solid #e74c3c;
   background: #fff5f5;
-  transform: scale(1.02);
 }
 
-/* 🔥 FOCUS MODE */
+/* FOCUS MODE */
 .focus-mode .card {
   display: none;
 }
@@ -115,9 +112,7 @@ body {
 .modal {
   display: none;
   position: fixed;
-  z-index: 999999;
-  left: 0;
-  top: 0;
+  z-index: 9999;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.9);
@@ -125,26 +120,17 @@ body {
   align-items: center;
 }
 
-.modal-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal img {
   max-width: 95vw;
   max-height: 95vh;
-  object-fit: contain;
 }
 
 .close {
   position: absolute;
   top: 10px;
   right: 15px;
-  font-size: 30px;
   color: white;
+  font-size: 30px;
   cursor: pointer;
 }
 </style>
@@ -153,27 +139,27 @@ body {
 
 <body>
 
-<div class="header">Λίστα Ελεγκτών E.E.T.A.A. A.E.</div>
+<div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
 <div class="search-box">
-<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="searchFunction()">
+<input type="text" onkeyup="search()" placeholder="🔍 Αναζήτηση...">
 </div>
 
-<button id="exitBtn" onclick="exitFocus()" style="
-display:none;
-margin:10px auto;
-padding:8px 12px;
-border:none;
-background:#2c3e50;
-color:white;
-border-radius:6px;
-cursor:pointer;
-">
-👁️ Εμφάνιση όλων </button>
+<button id="exitBtn" onclick="exitFocus()" style="display:none; margin:10px auto;">
+👁️ Εμφάνιση όλων
+</button>
 
-<div class="container">
+<div class="container" id="container"></div>
+
+<!-- MODAL -->
+
+<div id="modal" class="modal" onclick="closeModal()">
+<span class="close">&times;</span>
+<img src="apofasi_orismou.jpg">
+</div>
 
 <script>
+
 const data = [
 ["ELG001","Προμπονάς Ανδρέας","2131320683","promponas@eetaa.gr"],
 ["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
@@ -197,60 +183,47 @@ const data = [
 ["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
 ];
 
-document.write(
-data.map(e => `
-<div class="card" id="${e[0]}">
-  <img src="eetaa_logo.png" class="logo">
+const container = document.getElementById("container");
 
-  <div class="card-info">
-    <div class="name">${e[1]}</div>
-    <div class="code">${e[0]}</div>
+data.forEach(e => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.id = e[0];
+
+  card.innerHTML = `
+    <div class="left">
+      <img src="eetaa_logo.png" class="logo">
+      <button class="btn" onclick="openModal()">Απόφαση</button>
+    </div>
 
     <div class="info">
+      <div class="name">${e[1]}</div>
+      <div class="code">${e[0]}</div>
       📞 ${e[2]}<br>
       ✉️ ${e[3]}
     </div>
+  `;
 
-    <button class="btn" onclick="openModal()">📄 Απόφαση</button>
-  </div>
-</div>
-`).join("")
-);
-</script>
+  container.appendChild(card);
+});
 
-</div>
-
-<!-- MODAL -->
-
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img src="apofasi_orismou.jpg">
-  </div>
-</div>
-
-<script>
+/* SEARCH */
+function search() {
+  let val = event.target.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(c => {
+    c.style.display = c.innerText.toLowerCase().includes(val) ? "flex" : "none";
+  });
+}
 
 /* MODAL */
 function openModal() {
   document.getElementById("modal").style.display = "flex";
 }
-
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* SEARCH */
-function searchFunction() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
-  let cards = document.getElementsByClassName("card");
-
-  for (let c of cards) {
-    c.style.display = c.innerText.toLowerCase().includes(input) ? "" : "none";
-  }
-}
-
-/* 🔥 QR + FOCUS MODE */
+/* FOCUS MODE FIXED */
 document.addEventListener("DOMContentLoaded", () => {
 
   const params = new URLSearchParams(window.location.search);
@@ -268,10 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("exitBtn").style.display = "block";
 
     setTimeout(() => {
-      el.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 200);
   }
 });
@@ -279,18 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /* EXIT */
 function exitFocus() {
   document.body.classList.remove("focus-mode");
-
-  document.querySelectorAll(".card").forEach(c => {
-    c.classList.remove("active");
-  });
-
+  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
   document.getElementById("exitBtn").style.display = "none";
 }
-
-/* MODAL CLOSE */
-window.onclick = function(e) {
-  if (e.target.id === "modal") closeModal();
-};
 </script>
 
 </body>
