@@ -20,7 +20,6 @@ body {
   text-align: center;
 }
 
-/* CONTAINER */
 .container {
   display: flex;
   flex-direction: column;
@@ -30,7 +29,6 @@ body {
   margin: auto;
 }
 
-/* CARD */
 .card {
   background: white;
   padding: 15px;
@@ -41,7 +39,6 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* LEFT */
 .left {
   width: 130px;
   display: flex;
@@ -56,15 +53,13 @@ body {
 .btn {
   margin-top: 8px;
   padding: 6px 10px;
-  background: #3498db;
+  background: #27ae60; /* πράσινο για διαφοροποίηση */
   color: white;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
+  text-decoration: none;
   font-size: 12px;
 }
 
-/* RIGHT */
 .info {
   flex: 1;
 }
@@ -80,7 +75,6 @@ body {
   margin-top: 2px;
 }
 
-/* 🔥 SPACING FIX */
 .contact {
   margin-top: 10px;
   line-height: 1.6;
@@ -94,36 +88,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999999999;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.92);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal img {
-  max-width: 95vw;
-  max-height: 95vh;
-}
-
-.close {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 34px;
-  color: white;
-  cursor: pointer;
-}
 </style>
 
 </head>
@@ -133,13 +97,6 @@ a:hover {
 <div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
 <div class="container" id="container"></div>
-
-<!-- MODAL -->
-
-<div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img src="apofasi_orismou.jpg">
-</div>
 
 <script>
 
@@ -176,7 +133,11 @@ data.forEach(e => {
   card.innerHTML = `
     <div class="left">
       <img src="eetaa_logo.png" class="logo">
-      <button class="btn" onclick="openModal()">Απόφαση</button>
+
+      <!-- 🔥 SAFE BUTTON -->
+      <a class="btn" href="apofasi_orismou.jpg" target="_blank">
+        Απόφαση
+      </a>
     </div>
 
     <div class="info">
@@ -193,23 +154,7 @@ data.forEach(e => {
   container.appendChild(card);
 });
 
-/* MODAL */
-function openModal() {
-  document.getElementById("modal").classList.add("show");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.remove("show");
-  document.body.style.overflow = "auto";
-}
-
-/* close outside */
-document.getElementById("modal").addEventListener("click", e => {
-  if (e.target.id === "modal") closeModal();
-});
 </script>
 
 </body>
 </html>
-
