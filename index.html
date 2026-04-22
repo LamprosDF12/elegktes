@@ -18,10 +18,8 @@ body {
   color: white;
   padding: 15px;
   text-align: center;
-  font-size: 20px;
 }
 
-/* SEARCH */
 .search-box {
   padding: 15px;
   text-align: center;
@@ -31,30 +29,25 @@ body {
   width: 90%;
   max-width: 500px;
   padding: 10px;
-  font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* CONTAINER */
 .container {
   display: flex;
   flex-direction: column;
-  padding: 15px;
   gap: 12px;
+  padding: 15px;
   max-width: 800px;
   margin: auto;
 }
 
-/* CARD */
 .card {
   background: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* HEADER INSIDE CARD */
 .card-header {
   display: flex;
   align-items: center;
@@ -63,15 +56,12 @@ body {
 
 .logo {
   width: 110px;
-  height: auto;
 }
 
 .code {
   color: #555;
-  font-size: 14px;
 }
 
-/* BUTTON */
 .btn {
   margin-top: 10px;
   padding: 8px 12px;
@@ -82,11 +72,7 @@ body {
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #2980b9;
-}
-
-/* MODAL (FIXED FRONT LAYER) */
+/* MODAL FULL SCREEN FIX */
 .modal {
   display: none;
   position: fixed;
@@ -95,14 +81,11 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
-
-  display: flex;
-  align-items: center;
+  background: rgba(0,0,0,0.9);
   justify-content: center;
+  align-items: center;
 }
 
-/* MODAL CONTENT */
 .modal-content {
   position: relative;
   background: white;
@@ -114,19 +97,19 @@ body {
   overflow: auto;
 }
 
-/* IMAGE */
-.modal-content img {
-  width: 100%;
-  display: block;
-}
-
-/* CLOSE BUTTON */
 .close {
   position: absolute;
   top: 10px;
   right: 15px;
   font-size: 28px;
   cursor: pointer;
+}
+
+/* IMAGE ZOOM */
+.zoom-img {
+  width: 100%;
+  transition: transform 0.2s;
+  transform-origin: center;
 }
 </style>
 
@@ -142,45 +125,47 @@ body {
 
 <div class="container">
 
-<!-- CARD TEMPLATE -->
+<!-- 20 CARDS -->
 
-<div class="card">
-  <div class="card-header">
-    <img src="eetaa_logo.png" class="logo">
-    <div>
-      <strong>Προμπονάς Ανδρέας</strong><br>
-      <span class="code">Κωδικός: ELG001</span>
-    </div>
-  </div>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Προμπονάς Ανδρέας</strong><br><span class="code">ELG001</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-  <br>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Αμοιρίδου Στέλλα</strong><br><span class="code">ELG002</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-📞 <a href="tel:+2131320683">+2131320683</a><br>
-✉️ <a href="mailto:promponas@eetaa.gr">[promponas@eetaa.gr](mailto:promponas@eetaa.gr)</a><br>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Βαλάκας Χρήστος</strong><br><span class="code">ELG003</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-<button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Γεωργίου Αλέξανδρος</strong><br><span class="code">ELG004</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-</div>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Γκούτσια Ευαγγελία</strong><br><span class="code">ELG005</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-<div class="card">
-  <div class="card-header">
-    <img src="eetaa_logo.png" class="logo">
-    <div>
-      <strong>Αμοιρίδου Στέλλα</strong><br>
-      <span class="code">Κωδικός: ELG002</span>
-    </div>
-  </div>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Δημάκη Ελένη</strong><br><span class="code">ELG006</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-  <br>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Δόμβρη Ελένη</strong><br><span class="code">ELG007</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-📞 <a href="tel:+2310544714">+2310544714</a><br>
-✉️ <a href="mailto:amiridou@eetaa.gr">[amiridou@eetaa.gr](mailto:amiridou@eetaa.gr)</a><br>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Ευφραιμίδου Γαλήνη</strong><br><span class="code">ELG008</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-<button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Ηλιοπούλου Κωνσταντίνα</strong><br><span class="code">ELG009</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-</div>
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Καλλές Θεόδωρος</strong><br><span class="code">ELG010</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
-<!-- (copy ίδιες κάρτες για όλους τους ελεγκτές – δεν τις επαναλαμβάνω για να μην γίνει τεράστιο, αλλά είναι ίδια δομή) -->
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Καρβελάς Κωνσταντίνος</strong><br><span class="code">ELG011</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κόντου Ζωή</strong><br><span class="code">ELG012</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κουνενής Λάμπρος</strong><br><span class="code">ELG013</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κουλοχέρη Μαρία</strong><br><span class="code">ELG014</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Μιχαηλίδου Κατερίνα</strong><br><span class="code">ELG015</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Μπίτης Νικόλαος</strong><br><span class="code">ELG016</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Παπαπαναγιώτου Κωνσταντίνος</strong><br><span class="code">ELG017</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Σαλτζίδου Θεοφανεία</strong><br><span class="code">ELG018</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Σούρτζης Γεώργιος</strong><br><span class="code">ELG019</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+
+<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Τσιρώνης Νικόλαος</strong><br><span class="code">ELG020</span></div></div><button class="btn" onclick="openModal()">Απόφαση</button></div>
 
 </div>
 
@@ -189,39 +174,44 @@ body {
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
-    <img src="apofasi_orismou.jpg">
+    <img class="zoom-img" id="img" src="apofasi_orismou.jpg">
   </div>
 </div>
 
 <script>
 
-/* OPEN MODAL */
+let scale = 1;
+
 function openModal() {
+  scale = 1;
+  document.getElementById("img").style.transform = "scale(1)";
   document.getElementById("modal").style.display = "flex";
 }
 
-/* CLOSE MODAL */
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* CLICK OUTSIDE CLOSE */
 window.onclick = function(e) {
-  const modal = document.getElementById("modal");
-  if (e.target === modal) {
-    closeModal();
-  }
-};
+  if (e.target.id === "modal") closeModal();
+}
+
+/* ZOOM */
+document.getElementById("img").addEventListener("wheel", function(e) {
+  e.preventDefault();
+  if (e.deltaY < 0) scale += 0.1;
+  else scale -= 0.1;
+  if (scale < 1) scale = 1;
+  this.style.transform = "scale(" + scale + ")";
+}, { passive: false });
 
 /* SEARCH */
 function searchFunction() {
-  const input = document.getElementById("searchInput");
-  const filter = input.value.toLowerCase();
-  const cards = document.getElementsByClassName("card");
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let cards = document.getElementsByClassName("card");
 
   for (let i = 0; i < cards.length; i++) {
-    let text = cards[i].innerText.toLowerCase();
-    cards[i].style.display = text.includes(filter) ? "" : "none";
+    cards[i].style.display = cards[i].innerText.toLowerCase().includes(input) ? "" : "none";
   }
 }
 </script>
