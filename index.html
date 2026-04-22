@@ -34,6 +34,7 @@ body {
   border: 1px solid #ccc;
 }
 
+/* CONTAINER */
 .container {
   display: flex;
   flex-direction: column;
@@ -43,30 +44,26 @@ body {
   margin: auto;
 }
 
+/* CARD */
 .card {
   background: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* 🔥 FLEX ROW FIX */
-.card-header {
   display: flex;
-  align-items: stretch; /* σημαντικό για ίδιο ύψος */
   gap: 15px;
+  align-items: stretch;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: 0.3s;
 }
 
-/* 🔥 BIGGER LOGO */
+/* LOGO BIG */
 .logo {
   width: 140px;
-  height: auto;
   object-fit: contain;
   flex-shrink: 0;
-  display: block;
 }
 
-/* RIGHT SIDE FULL HEIGHT */
+/* INFO */
 .card-info {
   display: flex;
   flex-direction: column;
@@ -80,12 +77,10 @@ body {
 
 .code {
   color: #555;
-  font-size: 14px;
-  margin-top: 2px;
 }
 
 .info {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 14px;
   line-height: 1.4;
 }
@@ -100,8 +95,20 @@ body {
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #2980b9;
+/* HIGHLIGHT */
+.highlight {
+  border: 3px solid #e74c3c;
+  background: #fff5f5;
+  transform: scale(1.02);
+}
+
+/* 🔥 FOCUS MODE */
+.focus-mode .card {
+  display: none;
+}
+
+.focus-mode .card.active {
+  display: flex;
 }
 
 /* MODAL */
@@ -152,50 +159,60 @@ body {
 <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="searchFunction()">
 </div>
 
+<button id="exitBtn" onclick="exitFocus()" style="
+display:none;
+margin:10px auto;
+padding:8px 12px;
+border:none;
+background:#2c3e50;
+color:white;
+border-radius:6px;
+cursor:pointer;
+">
+👁️ Εμφάνιση όλων </button>
+
 <div class="container">
 
 <script>
 const data = [
-["Προμπονάς Ανδρέας","ELG001","2131320683","promponas@eetaa.gr"],
-["Αμοιρίδου Στέλλα","ELG002","2310544714","amiridou@eetaa.gr"],
-["Βαλάκας Χρήστος","ELG003","2410579220","valakas@eetaa.gr"],
-["Γεωργίου Αλέξανδρος","ELG004","2131320762","ageo@eetaa.gr"],
-["Γκούτσια Ευαγγελία","ELG005","2131320682","goutsia@eetaa.gr"],
-["Δημάκη Ελένη","ELG006","2131320739","dimaki@eetaa.gr"],
-["Δόμβρη Ελένη","ELG007","2310544714","domvri@eetaa.gr"],
-["Ευφραιμίδου Γαλήνη","ELG008","2310544714","galini@eetaa.gr"],
-["Ηλιοπούλου Κωνσταντίνα","ELG009","2131320755","nilio@eetaa.gr"],
-["Καλλές Θεόδωρος","ELG010","2131320751","kalles@eetaa.gr"],
-["Καρβελάς Κωνσταντίνος","ELG011","2131320723","kkarv@eetaa.gr"],
-["Κόντου Ζωή","ELG012","2131320645","kondou@eetaa.gr"],
-["Κουνενής Λάμπρος","ELG013","2131320633","lkoun@eetaa.gr"],
-["Κουλοχέρη Μαρία","ELG014","2410579220","koulocheri@eetaa.gr"],
-["Μιχαηλίδου Κατερίνα","ELG015","2310544714","mihailidou@eetaa.gr"],
-["Μπίτης Νικόλαος","ELG016","2410579220","nbitis@eetaa.gr"],
-["Παπαπαναγιώτου Κωνσταντίνος","ELG017","2131320676","papapanagiotou@eetaa.gr"],
-["Σαλτζίδου Θεοφανεία","ELG018","2310544714","fsaltzidou@eetaa.gr"],
-["Σούρτζης Γεώργιος","ELG019","2410579220","sourtzis@eetaa.gr"],
-["Τσιρώνης Νικόλαος","ELG020","2131320658","ntsir@eetaa.gr"]
+["ELG001","Προμπονάς Ανδρέας","2131320683","promponas@eetaa.gr"],
+["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
+["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
+["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
+["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
+["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
+["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
+["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
+["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
+["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
+["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
+["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
+["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
+["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
+["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
+["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
+["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
+["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
 ];
 
 document.write(
 data.map(e => `
-<div class="card">
-  <div class="card-header">
-    <img src="eetaa_logo.png" class="logo">
+<div class="card" id="${e[0]}">
+  <img src="eetaa_logo.png" class="logo">
 
-    <div class="card-info">
-      <div class="name">${e[0]}</div>
-      <div class="code">${e[1]}</div>
+  <div class="card-info">
+    <div class="name">${e[1]}</div>
+    <div class="code">${e[0]}</div>
 
-      <div class="info">
-        📞 ${e[2]}<br>
-        ✉️ ${e[3]}
-      </div>
+    <div class="info">
+      📞 ${e[2]}<br>
+      ✉️ ${e[3]}
     </div>
-  </div>
 
-  <button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button>
+    <button class="btn" onclick="openModal()">📄 Απόφαση</button>
+  </div>
 </div>
 `).join("")
 );
@@ -214,6 +231,7 @@ data.map(e => `
 
 <script>
 
+/* MODAL */
 function openModal() {
   document.getElementById("modal").style.display = "flex";
 }
@@ -222,19 +240,57 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-window.onclick = function(e) {
-  if (e.target.id === "modal") closeModal();
-};
-
+/* SEARCH */
 function searchFunction() {
   let input = document.getElementById("searchInput").value.toLowerCase();
   let cards = document.getElementsByClassName("card");
 
-  for (let i = 0; i < cards.length; i++) {
-    cards[i].style.display =
-      cards[i].innerText.toLowerCase().includes(input) ? "" : "none";
+  for (let c of cards) {
+    c.style.display = c.innerText.toLowerCase().includes(input) ? "" : "none";
   }
 }
+
+/* 🔥 QR + FOCUS MODE */
+document.addEventListener("DOMContentLoaded", () => {
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (!id) return;
+
+  const el = document.getElementById(id);
+
+  if (el) {
+    document.body.classList.add("focus-mode");
+
+    el.classList.add("active");
+
+    document.getElementById("exitBtn").style.display = "block";
+
+    setTimeout(() => {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 200);
+  }
+});
+
+/* EXIT */
+function exitFocus() {
+  document.body.classList.remove("focus-mode");
+
+  document.querySelectorAll(".card").forEach(c => {
+    c.classList.remove("active");
+  });
+
+  document.getElementById("exitBtn").style.display = "none";
+}
+
+/* MODAL CLOSE */
+window.onclick = function(e) {
+  if (e.target.id === "modal") closeModal();
+};
 </script>
 
 </body>
