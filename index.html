@@ -50,6 +50,7 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* 🔥 NEW LAYOUT FIX */
 .card-header {
   display: flex;
   align-items: center;
@@ -58,6 +59,17 @@ body {
 
 .logo {
   width: 100px;
+  flex-shrink: 0;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-weight: bold;
 }
 
 .code {
@@ -66,8 +78,9 @@ body {
 }
 
 .info {
-  margin-top: 5px;
+  margin-top: 6px;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .btn {
@@ -84,7 +97,7 @@ body {
   background: #2980b9;
 }
 
-/* MODAL FULLSCREEN FIT (NO SCROLL) */
+/* MODAL FULLSCREEN */
 .modal {
   display: none;
   position: fixed;
@@ -134,45 +147,54 @@ body {
 
 <div class="container">
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Προμπονάς Ανδρέας</strong><br>ELG001</div></div><div class="info">📞 2131320683<br>✉️ promponas@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+<!-- 20 CARDS -->
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Αμοιρίδου Στέλλα</strong><br>ELG002</div></div><div class="info">📞 2310544714<br>✉️ amiridou@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+<script>
+const data = [
+["Προμπονάς Ανδρέας","ELG001","2131320683","promponas@eetaa.gr"],
+["Αμοιρίδου Στέλλα","ELG002","2310544714","amiridou@eetaa.gr"],
+["Βαλάκας Χρήστος","ELG003","2410579220","valakas@eetaa.gr"],
+["Γεωργίου Αλέξανδρος","ELG004","2131320762","ageo@eetaa.gr"],
+["Γκούτσια Ευαγγελία","ELG005","2131320682","goutsia@eetaa.gr"],
+["Δημάκη Ελένη","ELG006","2131320739","dimaki@eetaa.gr"],
+["Δόμβρη Ελένη","ELG007","2310544714","domvri@eetaa.gr"],
+["Ευφραιμίδου Γαλήνη","ELG008","2310544714","galini@eetaa.gr"],
+["Ηλιοπούλου Κωνσταντίνα","ELG009","2131320755","nilio@eetaa.gr"],
+["Καλλές Θεόδωρος","ELG010","2131320751","kalles@eetaa.gr"],
+["Καρβελάς Κωνσταντίνος","ELG011","2131320723","kkarv@eetaa.gr"],
+["Κόντου Ζωή","ELG012","2131320645","kondou@eetaa.gr"],
+["Κουνενής Λάμπρος","ELG013","2131320633","lkoun@eetaa.gr"],
+["Κουλοχέρη Μαρία","ELG014","2410579220","koulocheri@eetaa.gr"],
+["Μιχαηλίδου Κατερίνα","ELG015","2310544714","mihailidou@eetaa.gr"],
+["Μπίτης Νικόλαος","ELG016","2410579220","nbitis@eetaa.gr"],
+["Παπαπαναγιώτου Κωνσταντίνος","ELG017","2131320676","papapanagiotou@eetaa.gr"],
+["Σαλτζίδου Θεοφανεία","ELG018","2310544714","fsaltzidou@eetaa.gr"],
+["Σούρτζης Γεώργιος","ELG019","2410579220","sourtzis@eetaa.gr"],
+["Τσιρώνης Νικόλαος","ELG020","2131320658","ntsir@eetaa.gr"]
+];
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Βαλάκας Χρήστος</strong><br>ELG003</div></div><div class="info">📞 2410579220<br>✉️ valakas@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+document.write(
+data.map(e => `
+<div class="card">
+  <div class="card-header">
+    <img src="eetaa_logo.png" class="logo">
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Γεωργίου Αλέξανδρος</strong><br>ELG004</div></div><div class="info">📞 2131320762<br>✉️ ageo@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+    <div class="card-info">
+      <div class="name">${e[0]}</div>
+      <div class="code">${e[1]}</div>
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Γκούτσια Ευαγγελία</strong><br>ELG005</div></div><div class="info">📞 2131320682<br>✉️ goutsia@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
+      <div class="info">
+        📞 ${e[2]}<br>
+        ✉️ ${e[3]}
+      </div>
+    </div>
+  </div>
 
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Δημάκη Ελένη</strong><br>ELG006</div></div><div class="info">📞 2131320739<br>✉️ dimaki@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Δόμβρη Ελένη</strong><br>ELG007</div></div><div class="info">📞 2310544714<br>✉️ domvri@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Ευφραιμίδου Γαλήνη</strong><br>ELG008</div></div><div class="info">📞 2310544714<br>✉️ galini@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Ηλιοπούλου Κωνσταντίνα</strong><br>ELG009</div></div><div class="info">📞 2131320755<br>✉️ nilio@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Καλλές Θεόδωρος</strong><br>ELG010</div></div><div class="info">📞 2131320751<br>✉️ kalles@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Καρβελάς Κωνσταντίνος</strong><br>ELG011</div></div><div class="info">📞 2131320723<br>✉️ kkarv@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κόντου Ζωή</strong><br>ELG012</div></div><div class="info">📞 2131320645<br>✉️ kondou@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κουνενής Λάμπρος</strong><br>ELG013</div></div><div class="info">📞 2131320633<br>✉️ lkoun@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Κουλοχέρη Μαρία</strong><br>ELG014</div></div><div class="info">📞 2410579220<br>✉️ koulocheri@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Μιχαηλίδου Κατερίνα</strong><br>ELG015</div></div><div class="info">📞 2310544714<br>✉️ mihailidou@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Μπίτης Νικόλαος</strong><br>ELG016</div></div><div class="info">📞 2410579220<br>✉️ nbitis@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Παπαπαναγιώτου Κωνσταντίνος</strong><br>ELG017</div></div><div class="info">📞 2131320676<br>✉️ papapanagiotou@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Σαλτζίδου Θεοφανεία</strong><br>ELG018</div></div><div class="info">📞 2310544714<br>✉️ fsaltzidou@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Σούρτζης Γεώργιος</strong><br>ELG019</div></div><div class="info">📞 2410579220<br>✉️ sourtzis@eetaa.gr</div><button class="btn" onclick="openModal()">Απόφαση</button></div>
-
-<div class="card"><div class="card-header"><img src="eetaa_logo.png" class="logo"><div><strong>Τσιρώνης Νικόλαος</strong><br>ELG020</div></div><div class="info">📞 2131320658<br>✉️ ntsir@eetaa.gr</div></div>
+  <button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button>
+</div>
+`).join("")
+);
+</script>
 
 </div>
 
@@ -212,3 +234,4 @@ function searchFunction() {
 
 </body>
 </html>
+
