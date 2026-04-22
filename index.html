@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="el">
 <head>
 <meta charset="UTF-8">
@@ -12,7 +13,6 @@ body {
   background: #f4f6f9;
 }
 
-/* HEADER */
 .header {
   background: #2c3e50;
   color: white;
@@ -38,8 +38,7 @@ body {
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  position: relative;
-  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* LEFT */
@@ -54,7 +53,6 @@ body {
   width: 120px;
 }
 
-/* 🔥 BUTTON FIXED (crucial) */
 .btn {
   margin-top: 8px;
   padding: 6px 10px;
@@ -64,8 +62,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 12px;
-  z-index: 2;
-  position: relative;
 }
 
 /* RIGHT */
@@ -84,19 +80,26 @@ body {
   margin-top: 2px;
 }
 
-/* LINKS */
+/* 🔥 SPACING FIX */
+.contact {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
 a {
   color: #2980b9;
   text-decoration: none;
 }
 
-/* 🔥 MODAL FIX (VERY IMPORTANT) */
+a:hover {
+  text-decoration: underline;
+}
+
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999999999; /* ultra high */
-  top: 0;
-  left: 0;
+  z-index: 999999999;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.92);
@@ -122,6 +125,7 @@ a {
   cursor: pointer;
 }
 </style>
+
 </head>
 
 <body>
@@ -131,6 +135,7 @@ a {
 <div class="container" id="container"></div>
 
 <!-- MODAL -->
+
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
   <img src="apofasi_orismou.jpg">
@@ -143,7 +148,22 @@ const data = [
 ["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
 ["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
-["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"]
+["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
+["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
+["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
+["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
+["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
+["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
+["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
+["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
+["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
+["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
+["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
+["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
+["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
+["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -162,34 +182,34 @@ data.forEach(e => {
     <div class="info">
       <div class="name">${e[1]}</div>
       <div class="code">${e[0]}</div>
-      📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
-      ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+
+      <div class="contact">
+        📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
+        ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+      </div>
     </div>
   `;
 
   container.appendChild(card);
 });
 
-/* 🔥 MODAL FIXED JS */
+/* MODAL */
 function openModal() {
-  const modal = document.getElementById("modal");
-  modal.classList.add("show");
+  document.getElementById("modal").classList.add("show");
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  const modal = document.getElementById("modal");
-  modal.classList.remove("show");
+  document.getElementById("modal").classList.remove("show");
   document.body.style.overflow = "auto";
 }
 
-/* click outside closes */
-document.getElementById("modal").addEventListener("click", function(e) {
-  if (e.target.id === "modal") {
-    closeModal();
-  }
+/* close outside */
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") closeModal();
 });
 </script>
 
 </body>
 </html>
+
