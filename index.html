@@ -91,18 +91,33 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.7);
+
+  /* επιτρέπει scroll στη σελίδα */
+  overflow: auto;
 }
 
 .modal-content {
   background: white;
-  margin: 3% auto;
+  margin: 2% auto;
   padding: 10px;
-  width: 90%;
+  width: 95%;
   max-width: 900px;
   border-radius: 10px;
 
-  max-height: 90vh;
+  /* 🔥 ΚΡΙΣΙΜΟ για Α4 */
+  max-height: 95vh;
   overflow-y: auto;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+
+  /* 🔥 σωστό fit για Α4 */
+  max-height: 90vh;
+  object-fit: contain;
+
+  display: block;
 }
 
 .close {
