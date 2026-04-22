@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="el">
 <head>
 <meta charset="UTF-8">
@@ -20,19 +19,6 @@ body {
   text-align: center;
 }
 
-.search-box {
-  padding: 15px;
-  text-align: center;
-}
-
-.search-box input {
-  width: 90%;
-  max-width: 500px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 /* CONTAINER */
 .container {
   display: flex;
@@ -49,20 +35,23 @@ body {
   padding: 15px;
   border-radius: 10px;
   display: flex;
-  gap: 15px;
+  align-items: center; /* 🔥 όλα στο ίδιο ύψος */
+  gap: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* LEFT */
+/* LEFT (LOGO + BUTTON) */
 .left {
-  width: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-width: 130px;
 }
 
 .logo {
   width: 120px;
+  height: auto;
 }
 
 .btn {
@@ -76,23 +65,36 @@ body {
   font-size: 12px;
 }
 
-/* INFO */
+/* RIGHT INFO */
 .info {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center; /* 🔥 κέντρο */
   justify-content: center;
 }
 
+/* NAME centered */
 .name {
   font-weight: bold;
   font-size: 16px;
+  text-align: center;
 }
 
+/* CODE under name, smaller */
 .code {
-  color: #666;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+  margin-top: 2px;
 }
 
-/* LINKS */
+/* CONTACT */
+.contact {
+  margin-top: 6px;
+  text-align: center;
+}
+
 a {
   color: #2980b9;
   text-decoration: none;
@@ -102,23 +104,14 @@ a:hover {
   text-decoration: underline;
 }
 
-/* FOCUS MODE */
-.focus-mode .card {
-  display: none;
-}
-
-.focus-mode .card.active {
-  display: flex;
-}
-
 /* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 9999999;
+  z-index: 999999;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0,0,0,0.9);
   justify-content: center;
   align-items: center;
 }
@@ -141,25 +134,15 @@ a:hover {
   cursor: pointer;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
-<div class="search-box">
-<input type="text" onkeyup="search()" placeholder="🔍 Αναζήτηση...">
-</div>
-
-<button id="exitBtn" onclick="exitFocus()" style="display:none; margin:10px auto;">
-👁️ Εμφάνιση όλων
-</button>
-
 <div class="container" id="container"></div>
 
 <!-- MODAL -->
-
 <div id="modal" class="modal">
 <span class="close" onclick="closeModal()">&times;</span>
 <img src="apofasi_orismou.jpg">
@@ -177,17 +160,7 @@ const data = [
 ["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
 ["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
 ["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
-["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
-["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
-["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
-["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
-["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
-["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
-["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
-["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
-["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
-["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
-["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -196,7 +169,6 @@ data.forEach(e => {
 
   const card = document.createElement("div");
   card.className = "card";
-  card.id = e[0];
 
   card.innerHTML = `
     <div class="left">
@@ -208,68 +180,29 @@ data.forEach(e => {
       <div class="name">${e[1]}</div>
       <div class="code">${e[0]}</div>
 
-      📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
-      ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+      <div class="contact">
+        📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
+        ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+      </div>
     </div>
   `;
 
   container.appendChild(card);
 });
 
-/* SEARCH */
-function search() {
-  let val = event.target.value.toLowerCase();
-  document.querySelectorAll(".card").forEach(c => {
-    c.style.display = c.innerText.toLowerCase().includes(val) ? "flex" : "none";
-  });
-}
-
 /* MODAL */
 function openModal() {
   document.getElementById("modal").classList.add("show");
-  document.body.style.overflow = "hidden";
 }
-
 function closeModal() {
   document.getElementById("modal").classList.remove("show");
-  document.body.style.overflow = "auto";
 }
 
 /* CLOSE OUTSIDE */
-document.getElementById("modal").addEventListener("click", (e) => {
+document.getElementById("modal").addEventListener("click", e => {
   if (e.target.id === "modal") closeModal();
 });
-
-/* QR FOCUS MODE */
-document.addEventListener("DOMContentLoaded", () => {
-
-  const id = new URLSearchParams(window.location.search).get("id");
-
-  if (!id) return;
-
-  const el = document.getElementById(id);
-
-  if (el) {
-    document.body.classList.add("focus-mode");
-    el.classList.add("active");
-
-    document.getElementById("exitBtn").style.display = "block";
-
-    setTimeout(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 200);
-  }
-});
-
-/* EXIT */
-function exitFocus() {
-  document.body.classList.remove("focus-mode");
-  document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
-  document.getElementById("exitBtn").style.display = "none";
-}
-
 </script>
 
 </body>
 </html>
-
