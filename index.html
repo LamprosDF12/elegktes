@@ -35,18 +35,17 @@ body {
   padding: 15px;
   border-radius: 10px;
   display: flex;
-  align-items: center; /* 🔥 όλα στο ίδιο ύψος */
+  align-items: flex-start;
   gap: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* LEFT (LOGO + BUTTON) */
+/* LEFT COLUMN */
 .left {
+  width: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-width: 130px;
 }
 
 .logo {
@@ -65,34 +64,34 @@ body {
   font-size: 12px;
 }
 
-/* RIGHT INFO */
+/* RIGHT COLUMN (aligned to logo top) */
 .info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 🔥 κέντρο */
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-/* NAME centered */
+/* NAME centered only horizontally */
 .name {
   font-weight: bold;
   font-size: 16px;
-  text-align: center;
+  text-align: left;
 }
 
-/* CODE under name, smaller */
+/* CODE centered UNDER name */
 .code {
   font-size: 12px;
   color: #777;
-  text-align: center;
+  text-align: center;   /* 🔥 όπως ζήτησες */
+  width: 100%;          /* πιάνει όλη τη δεξιά στήλη */
   margin-top: 2px;
 }
 
-/* CONTACT */
+/* CONTACT aligned left (right column alignment) */
 .contact {
-  margin-top: 6px;
-  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
 a {
@@ -155,12 +154,7 @@ const data = [
 ["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
 ["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
-["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
-["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
-["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
-["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
-["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
-["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"]
+["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -198,7 +192,7 @@ function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
-/* CLOSE OUTSIDE */
+/* click outside */
 document.getElementById("modal").addEventListener("click", e => {
   if (e.target.id === "modal") closeModal();
 });
