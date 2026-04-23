@@ -20,9 +20,11 @@ body {
   text-align: center;
 }
 
+/* 🔥 SEARCH hidden αλλά κρατάει χώρο */
 .search-box {
   padding: 15px;
   text-align: center;
+  visibility: hidden;
 }
 
 .search-box input {
@@ -234,15 +236,12 @@ window.onload = function() {
     const target = document.getElementById(id);
 
     if (target) {
-      // highlight
       target.classList.add("highlight");
 
-      // hide others
       document.querySelectorAll(".card").forEach(c => {
         if (c.id !== id) c.style.display = "none";
       });
 
-      // scroll
       target.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
