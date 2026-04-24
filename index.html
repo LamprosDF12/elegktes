@@ -26,14 +26,6 @@ body {
   visibility: hidden;
 }
 
-.search-box input {
-  width: 90%;
-  max-width: 500px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -78,6 +70,11 @@ body {
   cursor: pointer;
 }
 
+/* 🔽 δεύτερο κουμπί */
+.btn-secondary {
+  background: #7f8c8d;
+}
+
 .info {
   flex: 1;
 }
@@ -99,15 +96,7 @@ a {
   color: #2980b9;
 }
 
-/* 🔽 GDPR TEXT */
-.privacy {
-  font-size: 10px;
-  color: #666;
-  margin-top: 12px;
-  line-height: 1.4;
-}
-
-/* MODAL */
+/* MODALS */
 .modal {
   display: none;
   position: fixed;
@@ -116,13 +105,25 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.85);
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .modal.show {
   display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 700px;
+  max-height: 90%;
+  overflow-y: auto;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .modal img {
@@ -146,15 +147,28 @@ a {
 
 <div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="search()">
-</div>
-
 <div class="container" id="container"></div>
 
+<!-- MODAL ΑΠΟΦΑΣΗΣ -->
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
   <img src="apofasi_orismou.jpg">
+</div>
+
+<!-- MODAL GDPR -->
+<div id="gdprModal" class="modal">
+  <span class="close" onclick="closeGdpr()">&times;</span>
+  <div class="modal-content">
+    <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
+
+    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.<br><br>
+
+    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679 και βασίζεται στην εκτέλεση καθήκοντος που ασκείται προς το δημόσιο συμφέρον.<br><br>
+
+    Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.<br><br>
+
+    Για περισσότερες πληροφορίες σχετικά με την προστασία προσωπικών δεδομένων, μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων (DPO) της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, στο 213-1320701 ή στο dpo@eetaa.gr.
+  </div>
 </div>
 
 <script>
@@ -166,20 +180,7 @@ const data = [
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
 ["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
 ["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
-["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
-["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
-["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
-["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
-["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
-["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
-["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
-["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
-["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
-["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
-["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
-["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
-["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
-["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -194,6 +195,7 @@ data.forEach(e => {
     <div class="left">
       <img src="eetaa_logo.png" class="logo">
       <button class="btn" onclick="openModal()">Απόφαση</button>
+      <button class="btn btn-secondary" onclick="openGdpr()">Πληροφορίες προσωπικών δεδομένων</button>
     </div>
 
     <div class="info">
@@ -204,28 +206,13 @@ data.forEach(e => {
         📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
         ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
       </div>
-
-      <div class="privacy">
-
-   
-        Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας.<br><br>
-        Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.<br><br>
-        Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης.<br><br>
-        Για πληροφορίες: dpo@eetaa.gr | 213-1320701
-      </div>
     </div>
   `;
 
   container.appendChild(card);
 });
 
-function search() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card => {
-    card.style.display = card.innerText.toLowerCase().includes(input) ? "flex" : "none";
-  });
-}
-
+/* MODALS */
 function openModal() {
   document.getElementById("modal").classList.add("show");
 }
@@ -234,6 +221,15 @@ function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
+function openGdpr() {
+  document.getElementById("gdprModal").classList.add("show");
+}
+
+function closeGdpr() {
+  document.getElementById("gdprModal").classList.remove("show");
+}
+
+/* QR FOCUS */
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -252,11 +248,6 @@ window.onload = function() {
     }
   }
 };
-
-</script>
-
-</body>
-</html>
 
 </script>
 
