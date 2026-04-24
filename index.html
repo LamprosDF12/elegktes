@@ -50,6 +50,17 @@ body {
   text-decoration: none;
 }
 
+/* BUTTON */
+.btn {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 /* GDPR */
 .gdpr {
   font-size: 10px;
@@ -57,6 +68,38 @@ body {
   margin-top: 15px;
   text-align: justify;
   line-height: 1.3;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal img {
+  max-width: 95%;
+  max-height: 95%;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
 }
 
 /* ERROR */
@@ -72,6 +115,12 @@ body {
 <body>
 
 <div id="app"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img src="apofasi_orismou.jpg">
+</div>
 
 <script>
 
@@ -121,11 +170,21 @@ if (!id || !found) {
         ✉️ <a href="mailto:${found[3]}">${found[3]}</a>
       </div>
 
+      <button class="btn" onclick="openModal()">Απόφαση</button>
+
       <div class="gdpr">${GDPR}</div>
 
     </div>
   `;
 
+}
+
+function openModal() {
+  document.getElementById("modal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
 }
 
 </script>
