@@ -147,9 +147,13 @@ DPO: dpo@eetaa.gr
 const app = document.getElementById("app");
 
 const params = new URLSearchParams(window.location.search);
-const id = (params.get("id") || "").trim();
+const idRaw = params.get("id");
 
-const found = data.find(x => x[0] === id);
+/* 🔥 FIX: safe normalization */
+const id = (idRaw || "").trim().toUpperCase();
+
+/* 🔥 FIX: safe lookup */
+const found = data.find(x => (x[0] || "").trim().toUpperCase() === id);
 
 if (!id || !found) {
 
@@ -179,6 +183,7 @@ if (!id || !found) {
 
 }
 
+/* MODAL */
 function openModal() {
   document.getElementById("modal").classList.add("show");
 }
