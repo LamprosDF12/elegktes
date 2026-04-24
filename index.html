@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="el">
 <head>
 <meta charset="UTF-8">
@@ -20,19 +19,10 @@ body {
   text-align: center;
 }
 
-/* 🔥 SEARCH hidden αλλά κρατάει χώρο */
 .search-box {
   padding: 15px;
   text-align: center;
   visibility: hidden;
-}
-
-.search-box input {
-  width: 90%;
-  max-width: 500px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
 .container {
@@ -44,7 +34,6 @@ body {
   margin: auto;
 }
 
-/* CARD */
 .card {
   background: white;
   padding: 15px;
@@ -54,13 +43,11 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 🔥 highlight */
 .highlight {
   border: 3px solid red;
   background: #fff3f3;
 }
 
-/* LEFT */
 .left {
   width: 130px;
   display: flex;
@@ -82,7 +69,18 @@ body {
   cursor: pointer;
 }
 
-/* RIGHT */
+.btn-small {
+  margin-top: 5px;
+  padding: 4px 6px;
+  font-size: 10px;
+  background: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
 .info {
   flex: 1;
 }
@@ -104,7 +102,7 @@ a {
   color: #2980b9;
 }
 
-/* MODAL */
+/* MODALS */
 .modal {
   display: none;
   position: fixed;
@@ -122,17 +120,36 @@ a {
   display: flex;
 }
 
-.modal img {
-  max-width: 95%;
-  max-height: 95%;
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
 }
 
+/* CLOSE BUTTON (πάνω δεξιά σε όλα) */
 .close {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 30px;
+  top: 10px;
+  right: 12px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* GDPR BUTTON μέσα στο modal */
+.gdpr-btn {
+  margin-top: 10px;
+  padding: 5px 8px;
+  font-size: 11px;
+  background: #7f8c8d;
   color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 </style>
@@ -149,11 +166,37 @@ a {
 
 <div class="container" id="container"></div>
 
-<!-- MODAL -->
-
+<!-- MODAL ΑΠΟΦΑΣΗΣ -->
 <div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img src="apofasi_orismou.jpg">
+  <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <img src="apofasi_orismou.jpg" style="max-width:100%; border-radius:8px;">
+
+    <!-- 🔥 μικρό κουμπί GDPR μέσα στο modal -->
+    <button class="gdpr-btn" onclick="openGdpr()">Προσωπικά δεδομένα</button>
+
+  </div>
+</div>
+
+<!-- GDPR MODAL -->
+<div id="gdprModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close" onclick="closeGdpr()">&times;</span>
+
+    <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
+
+    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.<br><br>
+
+    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679 και βασίζεται στην εκτέλεση καθήκοντος που ασκείται προς το δημόσιο συμφέρον.<br><br>
+
+    Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.<br><br>
+
+    Για περισσότερες πληροφορίες σχετικά με την προστασία προσωπικών δεδομένων, μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων (DPO) της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, τηλεφωνικώς στο 213-1320701 ή μέσω email στη διεύθυνση dpo@eetaa.gr.
+
+  </div>
 </div>
 
 <script>
@@ -165,25 +208,12 @@ const data = [
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
 ["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
 ["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
-["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
-["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
-["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
-["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
-["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
-["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
-["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
-["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
-["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
-["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
-["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
-["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
-["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
-["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
 
-/* CREATE CARDS */
+/* CARDS */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -218,7 +248,7 @@ function search() {
   });
 }
 
-/* MODAL */
+/* MODALS */
 function openModal() {
   document.getElementById("modal").classList.add("show");
 }
@@ -227,7 +257,15 @@ function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
-/* QR FOCUS MODE */
+function openGdpr() {
+  document.getElementById("gdprModal").classList.add("show");
+}
+
+function closeGdpr() {
+  document.getElementById("gdprModal").classList.remove("show");
+}
+
+/* QR FOCUS */
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -248,6 +286,9 @@ window.onload = function() {
 };
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
