@@ -64,12 +64,14 @@ body {
   cursor: pointer;
 }
 
+/* 🔽 μικρό GDPR κουμπί */
 .btn-secondary {
   background: #bdc3c7;
   font-size: 10px;
   padding: 3px 6px;
   margin-top: 5px;
   color: #2c3e50;
+  width: 100%;
 }
 
 .info {
@@ -80,7 +82,6 @@ body {
   font-weight: bold;
 }
 
-/* 🔽 επαναφορά κωδικού */
 .code {
   font-size: 12px;
   color: #777;
@@ -94,7 +95,7 @@ a {
   color: #2980b9;
 }
 
-/* MODALS */
+/* MODAL BACKGROUND */
 .modal {
   display: none;
   position: fixed;
@@ -103,20 +104,23 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
+/* SHOW */
 .modal.show {
   display: flex;
 }
 
+/* CONTENT BOX */
 .modal-content {
+  position: relative;
   background: white;
   padding: 20px;
   max-width: 700px;
+  width: 90%;
   max-height: 90%;
   overflow-y: auto;
   border-radius: 10px;
@@ -124,22 +128,21 @@ a {
   line-height: 1.5;
 }
 
+/* IMAGE MODAL FIX */
 .modal img {
-  max-width: 95%;
-  max-height: 95%;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
 }
 
-.close {
+/* 🔽 CLOSE BUTTON μέσα στο popup */
+.close-btn {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 30px;
-  color: white;
+  top: 10px;
+  right: 12px;
+  font-size: 22px;
   cursor: pointer;
-}
-
-#gdprModal .close {
-  color: black;
+  color: #333;
   background: #eee;
   border-radius: 50%;
   padding: 2px 8px;
@@ -156,16 +159,26 @@ a {
 
 <!-- MODAL ΑΠΟΦΑΣΗΣ -->
 <div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img src="apofasi_orismou.jpg">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img src="apofasi_orismou.jpg">
+  </div>
 </div>
 
 <!-- MODAL GDPR -->
 <div id="gdprModal" class="modal">
-  <span class="close" onclick="closeGdpr()">&times;</span>
   <div class="modal-content">
+    <span class="close-btn" onclick="closeGdpr()">&times;</span>
+
     <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
-    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (...) <!-- ίδιο κείμενο -->
+
+    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.<br><br>
+
+    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679 και βασίζεται στην εκτέλεση καθήκοντος που ασκείται προς το δημόσιο συμφέρον.<br><br>
+
+    Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.<br><br>
+
+    Για περισσότερες πληροφορίες: dpo@eetaa.gr | 213-1320701
   </div>
 </div>
 
@@ -193,7 +206,7 @@ data.forEach(e => {
     <div class="left">
       <img src="eetaa_logo.png" class="logo">
       <button class="btn" onclick="openModal()">Απόφαση</button>
-      <button class="btn btn-secondary" onclick="openGdpr()">Πληροφορίες προσωπικών δεδομένων</button>
+      <button class="btn btn-secondary" onclick="openGdpr()">Προσωπικά δεδομένα</button>
     </div>
 
     <div class="info">
@@ -228,19 +241,19 @@ function closeGdpr() {
 }
 
 /* click outside */
-document.getElementById("gdprModal").addEventListener("click", function(e) {
-  if (e.target === this) closeGdpr();
-});
+document.getElementById("modal").onclick = e => {
+  if (e.target.id === "modal") closeModal();
+};
 
-document.getElementById("modal").addEventListener("click", function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById("gdprModal").onclick = e => {
+  if (e.target.id === "gdprModal") closeGdpr();
+};
 
 /* ESC */
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", e => {
   if (e.key === "Escape") {
-    closeGdpr();
     closeModal();
+    closeGdpr();
   }
 });
 
