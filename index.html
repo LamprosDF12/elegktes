@@ -69,16 +69,16 @@ body {
   cursor: pointer;
 }
 
-.btn-small {
-  margin-top: 5px;
-  padding: 4px 6px;
-  font-size: 10px;
-  background: #95a5a6;
+/* GDPR μικρό κουμπί */
+.gdpr-btn {
+  margin-top: 10px;
+  padding: 5px 8px;
+  font-size: 11px;
+  background: #7f8c8d;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%;
 }
 
 .info {
@@ -102,7 +102,8 @@ a {
   color: #2980b9;
 }
 
-/* MODALS */
+/* ================= MODALS ================= */
+
 .modal {
   display: none;
   position: fixed;
@@ -111,9 +112,11 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.75);
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .modal.show {
@@ -123,15 +126,23 @@ a {
 .modal-content {
   background: white;
   padding: 20px;
+  width: 95%;
   max-width: 700px;
-  width: 90%;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
   border-radius: 10px;
   position: relative;
+  text-align: center;
 }
 
-/* CLOSE BUTTON (πάνω δεξιά σε όλα) */
+/* εικόνα */
+.modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+}
+
+/* X close button */
 .close {
   position: absolute;
   top: 10px;
@@ -141,17 +152,6 @@ a {
   color: #333;
 }
 
-/* GDPR BUTTON μέσα στο modal */
-.gdpr-btn {
-  margin-top: 10px;
-  padding: 5px 8px;
-  font-size: 11px;
-  background: #7f8c8d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 </style>
 
 </head>
@@ -166,21 +166,22 @@ a {
 
 <div class="container" id="container"></div>
 
-<!-- MODAL ΑΠΟΦΑΣΗΣ -->
+<!-- ================= ΑΠΟΦΑΣΗ ================= -->
 <div id="modal" class="modal">
   <div class="modal-content">
 
     <span class="close" onclick="closeModal()">&times;</span>
 
-    <img src="apofasi_orismou.jpg" style="max-width:100%; border-radius:8px;">
+    <img src="apofasi_orismou.jpg">
 
-    <!-- 🔥 μικρό κουμπί GDPR μέσα στο modal -->
-    <button class="gdpr-btn" onclick="openGdpr()">Προσωπικά δεδομένα</button>
+    <button class="gdpr-btn" onclick="openGdpr()">
+      Πληροφορίες προσωπικών δεδομένων
+    </button>
 
   </div>
 </div>
 
-<!-- GDPR MODAL -->
+<!-- ================= GDPR ================= -->
 <div id="gdprModal" class="modal">
   <div class="modal-content">
 
@@ -194,7 +195,7 @@ a {
 
     Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.<br><br>
 
-    Για περισσότερες πληροφορίες σχετικά με την προστασία προσωπικών δεδομένων, μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων (DPO) της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, τηλεφωνικώς στο 213-1320701 ή μέσω email στη διεύθυνση dpo@eetaa.gr.
+    Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στον DPO της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, στο 213-1320701 ή στο dpo@eetaa.gr.
 
   </div>
 </div>
@@ -265,7 +266,7 @@ function closeGdpr() {
   document.getElementById("gdprModal").classList.remove("show");
 }
 
-/* QR FOCUS */
+/* QR AUTO FOCUS (STABLE) */
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -280,15 +281,14 @@ window.onload = function() {
         if (c.id !== id) c.style.display = "none";
       });
 
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 150);
     }
   }
 };
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
