@@ -160,7 +160,7 @@ a {
 
 <div class="container" id="container"></div>
 
-<!-- MODAL ΑΠΟΦΑΣΗΣ -->
+<!-- MODAL -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -168,20 +168,20 @@ a {
   </div>
 </div>
 
-<!-- GDPR MODAL -->
+<!-- GDPR -->
 <div id="gdprModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeGdpr()">&times;</span>
 
     <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
 
-    Τα στοιχεία (ονοματεπώνυμο, τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία και ταυτοποίηση ελεγκτών.<br><br>
+    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.<br><br>
 
-    Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ 2016/679).<br><br>
+    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679 και βασίζεται στην εκτέλεση καθήκοντος που ασκείται προς το δημόσιο συμφέρον.<br><br>
 
-    Δεν συλλέγονται δεδομένα επισκεπτών και δεν χρησιμοποιούνται cookies ή analytics.<br><br>
+    Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.<br><br>
 
-    DPO: dpo@eetaa.gr | 213-1320701
+    Για περισσότερες πληροφορίες σχετικά με την προστασία προσωπικών δεδομένων, μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων (DPO) της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, τηλεφωνικώς στο 213-1320701 ή μέσω email στη διεύθυνση dpo@eetaa.gr.
   </div>
 </div>
 
@@ -199,7 +199,7 @@ const data = [
 
 const container = document.getElementById("container");
 
-/* CREATE CARDS */
+/* cards */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -244,7 +244,7 @@ function closeGdpr() {
   document.getElementById("gdprModal").classList.remove("show");
 }
 
-/* click outside */
+/* close outside */
 document.getElementById("modal").onclick = e => {
   if (e.target.id === "modal") closeModal();
 };
@@ -262,30 +262,29 @@ document.addEventListener("keydown", e => {
 });
 
 /* =========================
-   QR AUTO FOCUS (SIMPLE & STABLE)
+   QR AUTO FOCUS (STABLE)
 ========================= */
 
-window.onload = function () {
-
+function qrFocus() {
   const id = new URLSearchParams(window.location.search).get("id");
-
   if (!id) return;
 
   const target = document.getElementById(id);
 
   if (target) {
-
     target.classList.add("highlight");
 
-    document.querySelectorAll(".card").forEach(card => {
-      if (card.id !== id) card.style.display = "none";
+    document.querySelectorAll(".card").forEach(c => {
+      if (c.id !== id) c.style.display = "none";
     });
 
     setTimeout(() => {
       target.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 100);
   }
-};
+}
+
+document.addEventListener("DOMContentLoaded", qrFocus);
 
 </script>
 
