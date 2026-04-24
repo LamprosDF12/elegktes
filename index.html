@@ -89,9 +89,7 @@ a {
   color: #2980b9;
 }
 
-/* =========================
-   MODALS (FIXED MOBILE)
-========================= */
+/* ================= MODALS ================= */
 
 .modal {
   display: none;
@@ -126,7 +124,7 @@ a {
   box-sizing: border-box;
 }
 
-/* εικόνα απόφασης */
+/* image fit */
 .modal img {
   max-width: 100%;
   max-height: 85vh;
@@ -172,11 +170,11 @@ a {
 
     <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
 
-    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία και ταυτοποίηση ελεγκτών.<br><br>
+    Τα στοιχεία (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία.<br><br>
 
     Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ 2016/679).<br><br>
 
-    Η ιστοσελίδα δεν συλλέγει δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή analytics.<br><br>
+    Δεν συλλέγονται δεδομένα επισκεπτών και δεν χρησιμοποιούνται cookies ή analytics.<br><br>
 
     DPO: dpo@eetaa.gr | 213-1320701
   </div>
@@ -196,6 +194,7 @@ const data = [
 
 const container = document.getElementById("container");
 
+/* cards */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -256,29 +255,46 @@ document.addEventListener("keydown", e => {
   }
 });
 
-/* QR FOCUS STABLE */
-window.addEventListener("DOMContentLoaded", () => {
+/* =========================
+   🔥 STABLE QR FOCUS FIX
+========================= */
+
+function qrFocus() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  if (id) {
-    setTimeout(() => {
-      const target = document.getElementById(id);
+  if (!id) return;
 
-      if (target) {
-        target.classList.add("highlight");
+  let tries = 0;
 
-        document.querySelectorAll(".card").forEach(c => {
-          if (c.id !== id) c.style.display = "none";
-        });
+  const interval = setInterval(() => {
 
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 120);
-  }
-});
+    const el = document.getElementById(id);
+
+    if (el) {
+      el.classList.add("highlight");
+
+      document.querySelectorAll(".card").forEach(c => {
+        if (c.id !== id) c.style.display = "none";
+      });
+
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      clearInterval(interval);
+    }
+
+    tries++;
+    if (tries > 25) clearInterval(interval);
+
+  }, 100);
+}
+
+window.addEventListener("load", qrFocus);
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
