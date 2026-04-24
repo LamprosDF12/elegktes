@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="el">
 <head>
 <meta charset="UTF-8">
@@ -19,10 +20,19 @@ body {
   text-align: center;
 }
 
+/* 🔥 SEARCH hidden αλλά κρατάει χώρο */
 .search-box {
   padding: 15px;
   text-align: center;
   visibility: hidden;
+}
+
+.search-box input {
+  width: 90%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .container {
@@ -34,22 +44,17 @@ body {
   margin: auto;
 }
 
+/* CARD */
 .card {
   background: white;
   padding: 15px;
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.top {
-  display: flex;
-  gap: 20px;
-}
-
-/* highlight */
+/* 🔥 highlight */
 .highlight {
   border: 3px solid red;
   background: #fff3f3;
@@ -99,15 +104,6 @@ a {
   color: #2980b9;
 }
 
-/* GDPR TEXT */
-.gdpr-text {
-  font-size: 10px;
-  color: #666;
-  line-height: 1.3;
-  margin-top: 25px; /* μεγάλο κενό */
-  text-align: justify;
-}
-
 /* MODAL */
 .modal {
   display: none;
@@ -154,6 +150,7 @@ a {
 <div class="container" id="container"></div>
 
 <!-- MODAL -->
+
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
   <img src="apofasi_orismou.jpg">
@@ -168,7 +165,20 @@ const data = [
 ["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
 ["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
 ["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
-["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"]
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
+["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
+["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
+["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
+["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
+["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
+["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
+["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
+["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
+["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
+["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
+["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
+["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
 ];
 
 const container = document.getElementById("container");
@@ -181,34 +191,19 @@ data.forEach(e => {
   card.id = e[0];
 
   card.innerHTML = `
-    <div class="top">
-
-      <div class="left">
-        <img src="eetaa_logo.png" class="logo">
-        <button class="btn" onclick="openModal()">Απόφαση</button>
-      </div>
-
-      <div class="info">
-        <div class="name">${e[1]}</div>
-        <div class="code">${e[0]}</div>
-
-        <div class="contact">
-          📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
-          ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
-        </div>
-      </div>
-
+    <div class="left">
+      <img src="eetaa_logo.png" class="logo">
+      <button class="btn" onclick="openModal()">Απόφαση</button>
     </div>
 
-    <!-- GDPR TEXT (προσθήκη που ζήτησες) -->
-    <div class="gdpr-text">
-    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.
+    <div class="info">
+      <div class="name">${e[1]}</div>
+      <div class="code">${e[0]}</div>
 
-    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679 και βασίζεται στην εκτέλεση καθήκοντος που ασκείται προς το δημόσιο συμφέρον.
-
-    Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης επισκεψιμότητας.
-
-    Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στον DPO της Ε.Ε.Τ.Α.Α. Α.Ε., κ. Γ. Σαραντίδη, στο 213-1320701 ή στο dpo@eetaa.gr.
+      <div class="contact">
+        📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
+        ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+      </div>
     </div>
   `;
 
@@ -232,7 +227,7 @@ function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
-/* QR FOCUS (ΑΣΤΑΘΕΙΣ ΚΑΤΑΛΗΚΤΙΚΗ ΕΚΔΟΣΗ) */
+/* QR FOCUS MODE */
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
