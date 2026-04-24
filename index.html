@@ -129,6 +129,7 @@ a {
   box-sizing: border-box;
 }
 
+/* image */
 .modal img {
   max-width: 100%;
   max-height: 85vh;
@@ -137,7 +138,7 @@ a {
   border-radius: 8px;
 }
 
-/* close button */
+/* close */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -174,11 +175,11 @@ a {
 
     <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
 
-    Τα στοιχεία (ονοματεπώνυμο, τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία.<br><br>
+    Τα στοιχεία (ονοματεπώνυμο, τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία και ταυτοποίηση ελεγκτών.<br><br>
 
     Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ 2016/679).<br><br>
 
-    Δεν γίνεται συλλογή δεδομένων επισκεπτών.<br><br>
+    Δεν συλλέγονται δεδομένα επισκεπτών και δεν χρησιμοποιούνται cookies ή analytics.<br><br>
 
     DPO: dpo@eetaa.gr | 213-1320701
   </div>
@@ -198,6 +199,7 @@ const data = [
 
 const container = document.getElementById("container");
 
+/* CREATE CARDS */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -260,27 +262,28 @@ document.addEventListener("keydown", e => {
 });
 
 /* =========================
-   QR FOCUS (STABLE SIMPLE VERSION)
+   QR AUTO FOCUS (SIMPLE & STABLE)
 ========================= */
 
 window.onload = function () {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
 
-  if (id) {
-    const target = document.getElementById(id);
+  const id = new URLSearchParams(window.location.search).get("id");
 
-    if (target) {
-      target.classList.add("highlight");
+  if (!id) return;
 
-      document.querySelectorAll(".card").forEach(c => {
-        if (c.id !== id) c.style.display = "none";
-      });
+  const target = document.getElementById(id);
 
-      setTimeout(() => {
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 100);
-    }
+  if (target) {
+
+    target.classList.add("highlight");
+
+    document.querySelectorAll(".card").forEach(card => {
+      if (card.id !== id) card.style.display = "none";
+    });
+
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
   }
 };
 
