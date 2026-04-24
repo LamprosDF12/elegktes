@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ελεγκτής E.E.T.A.A.</title>
+<title>Ελεγκτής - Ψηφιακή Ταυτότητα</title>
 
 <style>
 body {
@@ -21,14 +21,14 @@ body {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   width: 92%;
   max-width: 520px;
   text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .logo {
-  width: 120px;
+  width: 110px;
   margin-bottom: 10px;
 }
 
@@ -37,13 +37,12 @@ body {
   font-weight: bold;
 }
 
-.code {
-  font-size: 13px;
-  color: #777;
-  margin-bottom: 10px;
+.info {
+  margin-top: 10px;
+  font-size: 15px;
 }
 
-.contact a {
+.info a {
   display: block;
   color: #2980b9;
   text-decoration: none;
@@ -65,47 +64,16 @@ body {
 .gdpr {
   font-size: 10px;
   color: #666;
-  margin-top: 18px;
+  margin-top: 15px;
   text-align: justify;
   line-height: 1.35;
 }
 
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal img {
-  max-width: 95%;
-  max-height: 95%;
-}
-
-.close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
-
 /* ERROR */
 .error {
-  color: red;
+  color: #c0392b;
   font-size: 18px;
+  text-align: center;
 }
 </style>
 </head>
@@ -114,61 +82,55 @@ body {
 
 <div id="app"></div>
 
-<!-- MODAL -->
-<div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img src="apofasi_orismou.jpg">
-</div>
-
 <script>
 
-/* ================= DATA ================= */
-const data = [
-["ELG001","Προμπονάς Ανδρέας","2131320683","promponas@eetaa.gr"],
-["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
-["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
-["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
-["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
-["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
-["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
-["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
-["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
-["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
-["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
-["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
-["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
-["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
-["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
-["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
-["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
-["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
-["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
-["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
-];
+/* ================= SECURE DATA ================= */
+/*
+  token = "κρυφό κλειδί ταυτοποίησης"
+  → δεν φαίνεται στο QR εύκολα (αντι-copy protection basic level)
+*/
 
-/* ================= GDPR ================= */
-const GDPR = `
-Τα στοιχεία που εμφανίζονται αφορούν αποκλειστικά υπηρεσιακά δεδομένα ελεγκτών και χρησιμοποιούνται μόνο για ταυτοποίηση και επικοινωνία.
+const inspectors = {
+  "ELG001": { name:"Προμπονάς Ανδρέας", phone:"2131320683", email:"promponas@eetaa.gr", token:"a81k2x" },
+  "ELG002": { name:"Αμοιρίδου Στέλλα", phone:"2310544714", email:"amiridou@eetaa.gr", token:"b92m1z" },
+  "ELG003": { name:"Βαλάκας Χρήστος", phone:"2410579220", email:"valakas@eetaa.gr", token:"c73n4q" },
+  "ELG004": { name:"Γεωργίου Αλέξανδρος", phone:"2131320762", email:"ageo@eetaa.gr", token:"d12p9s" },
+  "ELG005": { name:"Γκούτσια Ευαγγελία", phone:"2131320682", email:"goutsia@eetaa.gr", token:"e55r2t" },
+  "ELG006": { name:"Δημάκη Ελένη", phone:"2131320739", email:"dimaki@eetaa.gr", token:"f77u3w" },
+  "ELG007": { name:"Δόμβρη Ελένη", phone:"2310544714", email:"domvri@eetaa.gr", token:"g88v6x" },
+  "ELG008": { name:"Ευφραιμίδου Γαλήνη", phone:"2310544714", email:"galini@eetaa.gr", token:"h19y8z" },
+  "ELG009": { name:"Ηλιοπούλου Κωνσταντίνα", phone:"2131320755", email:"nilio@eetaa.gr", token:"i20a1b" },
+  "ELG010": { name:"Καλλές Θεόδωρος", phone:"2131320751", email:"kalles@eetaa.gr", token:"j31c2d" },
+  "ELG011": { name:"Καρβελάς Κωνσταντίνος", phone:"2131320723", email:"kkarv@eetaa.gr", token:"k42e3f" },
+  "ELG012": { name:"Κόντου Ζωή", phone:"2131320645", email:"kondou@eetaa.gr", token:"l53g4h" },
+  "ELG013": { name:"Κουνενής Λάμπρος", phone:"2131320633", email:"lkoun@eetaa.gr", token:"m64i5j" },
+  "ELG014": { name:"Κουλοχέρη Μαρία", phone:"2410579220", email:"koulocheri@eetaa.gr", token:"n75k6l" },
+  "ELG015": { name:"Μιχαηλίδου Κατερίνα", phone:"2310544714", email:"mihailidou@eetaa.gr", token:"o86m7n" },
+  "ELG016": { name:"Μπίτης Νικόλαος", phone:"2410579220", email:"nbitis@eetaa.gr", token:"p97o8p" },
+  "ELG017": { name:"Παπαπαναγιώτου Κωνσταντίνος", phone:"2131320676", email:"papapanagiotou@eetaa.gr", token:"q18q9r" },
+  "ELG018": { name:"Σαλτζίδου Θεοφανεία", phone:"2310544714", email:"fsaltzidou@eetaa.gr", token:"r29s1t" },
+  "ELG019": { name:"Σούρτζης Γεώργιος", phone:"2410579220", email:"sourtzis@eetaa.gr", token:"s30u2v" },
+  "ELG020": { name:"Τσιρώνης Νικόλαος", phone:"2131320658", email:"ntsir@eetaa.gr", token:"t41w3x" }
+};
 
-Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ) 2016/679.
-
-Η ιστοσελίδα δεν συλλέγει δεδομένα επισκεπτών.
-
-DPO: dpo@eetaa.gr
-`;
-
-/* ================= QR PARSE SAFE ================= */
+/* ================= QR INPUT ================= */
 const params = new URLSearchParams(window.location.search);
-const id = (params.get("id") || "").trim().toUpperCase();
 
-const found = data.find(x => String(x[0]).trim().toUpperCase() === id);
+const id = (params.get("id") || "").trim().toUpperCase();
+const token = (params.get("token") || "").trim();
+
+const inspector = inspectors[id];
 
 const app = document.getElementById("app");
 
-/* ================= RENDER ================= */
-if (!id || !found) {
+/* ================= VALIDATION ================= */
+if (!id || !inspector || inspector.token !== token) {
 
-  app.innerHTML = `<div class="error">Μη έγκυρο QR ή δεν βρέθηκε ελεγκτής</div>`;
+  app.innerHTML = `
+    <div class="error">
+      ❌ Μη έγκυρο QR ή δεν βρέθηκε ελεγκτής
+    </div>
+  `;
 
 } else {
 
@@ -177,29 +139,24 @@ if (!id || !found) {
 
       <img src="eetaa_logo.png" class="logo">
 
-      <div class="name">${found[1]}</div>
-      <div class="code">${found[0]}</div>
+      <div class="name">${inspector.name}</div>
 
-      <div class="contact">
-        📞 <a href="tel:+30${found[2]}">${found[2]}</a>
-        ✉️ <a href="mailto:${found[3]}">${found[3]}</a>
+      <div class="info">
+        📞 <a href="tel:+30${inspector.phone}">${inspector.phone}</a>
+        ✉️ <a href="mailto:${inspector.email}">${inspector.email}</a>
       </div>
 
-      <button class="btn" onclick="openModal()">Απόφαση</button>
+      <button class="btn" onclick="window.print()">Απόφαση</button>
 
-      <div class="gdpr">${GDPR}</div>
+      <div class="gdpr">
+        Τα στοιχεία εμφανίζονται αποκλειστικά για υπηρεσιακή ταυτοποίηση ελεγκτών.
+        Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ) 2016/679.
+        Δεν γίνεται καταγραφή δεδομένων επισκεπτών.
+      </div>
 
     </div>
   `;
-}
 
-/* ================= MODAL ================= */
-function openModal() {
-  document.getElementById("modal").classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.remove("show");
 }
 
 </script>
