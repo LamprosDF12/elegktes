@@ -2,14 +2,16 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Επαλήθευση Ελεγκτή</title>
 
 <style>
-body {
-  font-family: Arial;
+html, body {
   margin: 0;
+  padding: 0;
+  font-family: Arial;
   background: #f4f6f9;
+  overflow-x: hidden;
 }
 
 .header {
@@ -69,59 +71,60 @@ body {
 
 a { color: #2980b9; }
 
-/* MODAL FIX */
+/* 🔥 MODAL STABLE SYSTEM */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999999;
   inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  box-sizing: border-box;
+  background: rgba(0,0,0,0.95);
+  z-index: 999999;
 }
 
 .modal.show {
-  display: flex;
-}
-
-.modal-box {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-  overflow: auto;
-}
-
-/* IMAGE */
-.modal-box img {
-  max-width: 100%;
-  max-height: 85vh;
   display: block;
-  margin: auto;
-  border-radius: 10px;
+}
+
+/* CENTER SAFE */
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 100%;
+  max-width: 95vw;
+  max-height: 90vh;
+
+  overflow: hidden;
+}
+
+/* IMAGE FIX */
+.modal-box img {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
 }
 
 /* GDPR */
 .modal-content {
-  max-width: 600px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
   background: white;
   padding: 15px;
   border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
   font-size: 12px;
   line-height: 1.4;
   text-align: justify;
 }
 
-/* CLOSE */
+/* CLOSE BUTTON */
 .close {
-  position: absolute;
+  position: fixed;
   top: 10px;
-  right: 10px;
-  font-size: 26px;
+  right: 15px;
+  font-size: 34px;
   color: white;
   cursor: pointer;
   z-index: 1000000;
@@ -137,24 +140,21 @@ a { color: #2980b9; }
 
 <!-- ΑΠΟΦΑΣΗ -->
 <div id="decisionModal" class="modal">
+  <span class="close" onclick="closeDecision()">&times;</span>
   <div class="modal-box">
-    <span class="close" onclick="closeDecision()">&times;</span>
     <img src="apofasi_orismou.jpg">
   </div>
 </div>
 
 <!-- GDPR -->
 <div id="gdprModal" class="modal">
+  <span class="close" onclick="closeGdpr()">&times;</span>
   <div class="modal-box">
-    <span class="close" onclick="closeGdpr()">&times;</span>
     <div class="modal-content">
-      Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.
-
-      Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.
-
-      Η ιστοσελίδα δεν συλλέγει ούτε επεξεργάζεται δεδομένα επισκεπτών.
-
-      Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων της Ε.Ε.Τ.Α.Α. Α.Ε., στο 213-1320701 ή στο dpo@eetaa.gr.
+Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας.
+Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.
+Η ιστοσελίδα δεν συλλέγει ούτε επεξεργάζεται δεδομένα επισκεπτών.
+Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στο 213-1320701 ή στο dpo@eetaa.gr.
     </div>
   </div>
 </div>
@@ -225,7 +225,6 @@ window.onload = function () {
   container.appendChild(card);
 };
 
-/* MODALS */
 function openDecision() {
   document.getElementById("decisionModal").classList.add("show");
 }
