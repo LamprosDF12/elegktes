@@ -25,14 +25,6 @@ body {
   visibility: hidden;
 }
 
-.search-box input {
-  width: 90%;
-  max-width: 500px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -102,6 +94,15 @@ a {
   color: #2980b9;
 }
 
+/* GDPR TEXT */
+.gdpr {
+  font-size: 10px;
+  color: #666;
+  margin-top: 20px;
+  line-height: 1.3;
+  text-align: justify;
+}
+
 /* MODAL */
 .modal {
   display: none;
@@ -134,6 +135,7 @@ a {
   cursor: pointer;
 }
 </style>
+
 </head>
 
 <body>
@@ -141,7 +143,7 @@ a {
 <div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
 <div class="search-box">
-<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση...">
+<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="search()">
 </div>
 
 <div class="container" id="container"></div>
@@ -163,6 +165,16 @@ const data = [
 ["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
 ["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"]
 ];
+
+const GDPR_TEXT = `
+Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.
+
+Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.
+
+Η ιστοσελίδα δεν συλλέγει ούτε αποθηκεύει δεδομένα επισκεπτών.
+
+Για πληροφορίες: DPO Ε.Ε.Τ.Α.Α. Α.Ε., 213-1320701, dpo@eetaa.gr.
+`;
 
 const container = document.getElementById("container");
 
@@ -186,6 +198,8 @@ function createCard(e) {
         📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
         ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
       </div>
+
+      <div class="gdpr">${GDPR_TEXT}</div>
     </div>
   `;
 
@@ -193,36 +207,34 @@ function createCard(e) {
 }
 
 /* =========================
-   QR LOGIC (1 CARD ONLY)
+   QR FOCUS (SAFE VERSION)
 ========================= */
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
 
   const id = new URLSearchParams(window.location.search).get("id");
 
-  if (id) {
-
-    const found = data.find(x => x[0] === id);
-
-    if (found) {
-
-      createCard(found);
-
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.classList.add("highlight");
-          el.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }, 100);
-
-    } else {
-      container.innerHTML = "<div>Δεν βρέθηκε ελεγκτής</div>";
-    }
-
-  } else {
-
+  if (!id) {
     data.forEach(createCard);
+    return;
   }
+
+  const found = data.find(x => x[0] === id);
+
+  if (!found) {
+    container.innerHTML = "Δεν βρέθηκε ελεγκτής";
+    return;
+  }
+
+  createCard(found);
+
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.add("highlight");
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 80);
+
 });
 
 /* MODAL */
