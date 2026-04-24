@@ -20,7 +20,6 @@ body {
   text-align: center;
 }
 
-/* 🔥 SEARCH hidden αλλά κρατάει χώρο */
 .search-box {
   padding: 15px;
   text-align: center;
@@ -44,7 +43,6 @@ body {
   margin: auto;
 }
 
-/* CARD */
 .card {
   background: white;
   padding: 15px;
@@ -54,13 +52,11 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* 🔥 highlight */
 .highlight {
   border: 3px solid red;
   background: #fff3f3;
 }
 
-/* LEFT */
 .left {
   width: 130px;
   display: flex;
@@ -82,7 +78,6 @@ body {
   cursor: pointer;
 }
 
-/* RIGHT */
 .info {
   flex: 1;
 }
@@ -102,6 +97,14 @@ body {
 
 a {
   color: #2980b9;
+}
+
+/* 🔽 GDPR TEXT */
+.privacy {
+  font-size: 10px;
+  color: #666;
+  margin-top: 12px;
+  line-height: 1.4;
 }
 
 /* MODAL */
@@ -149,8 +152,6 @@ a {
 
 <div class="container" id="container"></div>
 
-<!-- MODAL -->
-
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
   <img src="apofasi_orismou.jpg">
@@ -183,7 +184,6 @@ const data = [
 
 const container = document.getElementById("container");
 
-/* CREATE CARDS */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -204,13 +204,22 @@ data.forEach(e => {
         📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
         ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
       </div>
+
+      <div class="privacy">
+        Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας.<br><br>
+
+        Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.<br><br>
+
+        Η ιστοσελίδα δεν συλλέγει, αποθηκεύει ή επεξεργάζεται δεδομένα επισκεπτών και δεν χρησιμοποιεί cookies ή εργαλεία ανάλυσης.<br><br>
+
+        Για πληροφορίες: dpo@eetaa.gr | 213-1320701
+      </div>
     </div>
   `;
 
   container.appendChild(card);
 });
 
-/* SEARCH */
 function search() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   document.querySelectorAll(".card").forEach(card => {
@@ -218,7 +227,6 @@ function search() {
   });
 }
 
-/* MODAL */
 function openModal() {
   document.getElementById("modal").classList.add("show");
 }
@@ -227,7 +235,6 @@ function closeModal() {
   document.getElementById("modal").classList.remove("show");
 }
 
-/* QR FOCUS MODE */
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -246,6 +253,11 @@ window.onload = function() {
     }
   }
 };
+
+</script>
+
+</body>
+</html>
 
 </script>
 
