@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ελεγκτές E.E.T.A.A.</title>
+<title>Επαλήθευση Ελεγκτή</title>
 
 <style>
 body {
@@ -12,7 +12,6 @@ body {
   background: #f4f6f9;
 }
 
-/* HEADER */
 .header {
   background: #2c3e50;
   color: white;
@@ -20,7 +19,6 @@ body {
   text-align: center;
 }
 
-/* CONTAINER */
 .container {
   display: flex;
   justify-content: center;
@@ -39,19 +37,17 @@ body {
   width: 100%;
 }
 
-/* LEFT */
 .left {
-  width: 130px;
+  width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .logo {
-  width: 110px;
+  width: 100px;
 }
 
-/* BUTTON */
 .btn {
   margin-top: 10px;
   padding: 6px 10px;
@@ -63,70 +59,74 @@ body {
   font-size: 12px;
 }
 
-/* INFO */
 .info { flex: 1; }
 
-.name {
-  font-weight: bold;
-  font-size: 16px;
-}
+.name { font-weight: bold; }
 
-.code {
-  font-size: 12px;
-  color: #777;
-}
+.code { font-size: 12px; color: #777; }
 
-.contact {
-  margin-top: 10px;
-  font-size: 14px;
-}
+.contact { margin-top: 10px; }
 
 a { color: #2980b9; }
 
-/* MODALS */
+/* MODAL FIX */
 .modal {
   display: none;
   position: fixed;
   z-index: 999999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.85);
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
-.modal.show { display: flex; }
+.modal.show {
+  display: flex;
+}
 
-.modal img,
-.modal-content {
-  max-width: 95%;
-  max-height: 90%;
-  background: white;
-  padding: 20px;
+.modal-box {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+/* IMAGE */
+.modal-box img {
+  max-width: 100%;
+  max-height: 85vh;
+  display: block;
+  margin: auto;
   border-radius: 10px;
+}
+
+/* GDPR */
+.modal-content {
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: justify;
 }
 
 /* CLOSE */
 .close {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 30px;
+  top: 10px;
+  right: 10px;
+  font-size: 26px;
   color: white;
   cursor: pointer;
-}
-
-/* GDPR */
-.modal-content {
-  font-size: 12px;
-  line-height: 1.4;
-  text-align: justify;
+  z-index: 1000000;
 }
 </style>
-
 </head>
 
 <body>
@@ -137,27 +137,30 @@ a { color: #2980b9; }
 
 <!-- ΑΠΟΦΑΣΗ -->
 <div id="decisionModal" class="modal">
-  <span class="close" onclick="closeDecision()">&times;</span>
-  <img src="apofasi_orismou.jpg">
+  <div class="modal-box">
+    <span class="close" onclick="closeDecision()">&times;</span>
+    <img src="apofasi_orismou.jpg">
+  </div>
 </div>
 
 <!-- GDPR -->
 <div id="gdprModal" class="modal">
-  <span class="close" onclick="closeGdpr()">&times;</span>
-  <div class="modal-content">
-    Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.
+  <div class="modal-box">
+    <span class="close" onclick="closeGdpr()">&times;</span>
+    <div class="modal-content">
+      Τα στοιχεία που εμφανίζονται στην παρούσα ιστοσελίδα (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο και υπηρεσιακή διεύθυνση ηλεκτρονικού ταχυδρομείου) αφορούν αποκλειστικά σε υπηρεσιακά δεδομένα ελεγκτών του Προγράμματος Προσχολικής Αγωγής και Δημιουργικής Απασχόλησης Παιδιών και δημοσιοποιούνται για σκοπούς ταυτοποίησης και υπηρεσιακής επικοινωνίας, στο πλαίσιο άσκησης των αρμοδιοτήτων τους.
 
-    Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.
+      Η επεξεργασία πραγματοποιείται σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ) 2016/679.
 
-    Η ιστοσελίδα δεν συλλέγει ούτε επεξεργάζεται δεδομένα επισκεπτών.
+      Η ιστοσελίδα δεν συλλέγει ούτε επεξεργάζεται δεδομένα επισκεπτών.
 
-    Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων της Ε.Ε.Τ.Α.Α. Α.Ε., στο 213-1320701 ή στο dpo@eetaa.gr.
+      Για περισσότερες πληροφορίες μπορείτε να απευθύνεστε στον Υπεύθυνο Προστασίας Δεδομένων της Ε.Ε.Τ.Α.Α. Α.Ε., στο 213-1320701 ή στο dpo@eetaa.gr.
+    </div>
   </div>
 </div>
 
 <script>
 
-/* DATA + TOKENS */
 const data = {
   "ELG001": {name:"Προμπονάς Ανδρέας",phone:"2131320683",email:"promponas@eetaa.gr",token:"a81k2x"},
   "ELG002": {name:"Αμοιρίδου Στέλλα",phone:"2310544714",email:"amiridou@eetaa.gr",token:"b92m1z"},
@@ -183,17 +186,15 @@ const data = {
 
 const container = document.getElementById("container");
 
-/* LOAD */
 window.onload = function () {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const token = params.get("token");
 
-  /* VALIDATION */
   if (!id || !token || !data[id] || data[id].token !== token) {
     document.body.innerHTML = `
-      <div style="text-align:center;margin-top:60px;font-family:Arial;">
+      <div style="text-align:center;margin-top:60px;">
         <h2>❌ Μη έγκυρο QR ή δεν βρέθηκε ελεγκτής</h2>
       </div>`;
     return;
@@ -201,7 +202,6 @@ window.onload = function () {
 
   const e = data[id];
 
-  /* CREATE SINGLE CARD */
   const card = document.createElement("div");
   card.className = "card";
 
@@ -229,7 +229,6 @@ window.onload = function () {
 function openDecision() {
   document.getElementById("decisionModal").classList.add("show");
 }
-
 function closeDecision() {
   document.getElementById("decisionModal").classList.remove("show");
 }
@@ -237,7 +236,6 @@ function closeDecision() {
 function openGdpr() {
   document.getElementById("gdprModal").classList.add("show");
 }
-
 function closeGdpr() {
   document.getElementById("gdprModal").classList.remove("show");
 }
