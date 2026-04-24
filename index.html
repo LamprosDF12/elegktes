@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="el">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ελεγκτές</title>
+<title>Ελεγκτές E.E.T.A.A.</title>
 
 <style>
 body {
@@ -17,32 +18,30 @@ body {
   color: white;
   padding: 15px;
   text-align: center;
-  font-size: 20px;
 }
 
-/* SEARCH */
+/* 🔥 SEARCH hidden αλλά κρατάει χώρο */
 .search-box {
   padding: 15px;
   text-align: center;
+  visibility: hidden;
 }
 
 .search-box input {
   width: 90%;
   max-width: 500px;
   padding: 10px;
-  font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* CONTAINER */
 .container {
   display: flex;
   flex-direction: column;
-  padding: 15px;
   gap: 12px;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 15px;
+  max-width: 900px;
+  margin: auto;
 }
 
 /* CARD */
@@ -50,174 +49,203 @@ body {
   background: white;
   padding: 15px;
   border-radius: 10px;
+  display: flex;
+  gap: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: 0.3s;
 }
 
-.card:hover {
-  transform: scale(1.02);
-}
-
-/* HIGHLIGHT */
+/* 🔥 highlight */
 .highlight {
-  border: 3px solid #e74c3c;
-  background: #fff5f5;
+  border: 3px solid red;
+  background: #fff3f3;
 }
 
-/* BUTTON */
+/* LEFT */
+.left {
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 120px;
+}
+
 .btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 12px;
+  margin-top: 8px;
+  padding: 6px 10px;
   background: #3498db;
   color: white;
-  text-decoration: none;
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #2980b9;
+/* RIGHT */
+.info {
+  flex: 1;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.code {
+  font-size: 12px;
+  color: #777;
+}
+
+.contact {
+  margin-top: 10px;
+}
+
+a {
+  color: #2980b9;
 }
 
 /* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999;
-  left: 0;
+  z-index: 999999;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
 }
 
-.modal-content {
-  background: white;
-  margin: 5% auto;
-  padding: 10px;
-  width: 90%;
-  max-width: 900px;
-  border-radius: 10px;
+.modal.show {
+  display: flex;
+}
+
+.modal img {
+  max-width: 95%;
+  max-height: 95%;
 }
 
 .close {
-  float: right;
-  font-size: 28px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
   cursor: pointer;
 }
-
-.modal-content img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="header">Λίστα Ελεγκτών E.E.T.A.A. A.E.</div>
+<div class="header">Λίστα Ελεγκτών E.E.T.A.A.</div>
 
-<!-- SEARCH -->
 <div class="search-box">
-  <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση ελεγκτή..." onkeyup="searchFunction()">
+<input type="text" id="searchInput" placeholder="🔍 Αναζήτηση..." onkeyup="search()">
 </div>
 
-<div class="container">
-
-<div id="ELG001" class="card"><strong>Προμπονάς Ανδρέας</strong><br>Κωδικός: ELG001<br><br>📞 <a href="tel:+2131320683">+213 132 0683</a><br>✉️ <a href="mailto:promponas@eetaa.gr">promponas@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG002" class="card"><strong>Αμοιρίδου Στέλλα</strong><br>Κωδικός: ELG002<br><br>📞 <a href="tel:+2310544714">+2310 544 714</a><br>✉️ <a href="mailto:amiridou@eetaa.gr">amiridou@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG003" class="card"><strong>Βαλάκας Χρήστος</strong><br>Κωδικός: ELG003<br><br>📞 <a href="tel:+2410579220">+2410 579 220</a><br>✉️ <a href="mailto:valakas@eetaa.gr">valakas@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG004" class="card"><strong>Γεωργίου Αλέξανδρος</strong><br>Κωδικός: ELG004<br><br>📞 <a href="tel:+2131320762">+213 132 0762</a><br>✉️ <a href="mailto:ageo@eetaa.gr">ageo@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG005" class="card"><strong>Γκούτσια Ευαγγελία</strong><br>Κωδικός: ELG005<br><br>📞 <a href="tel:+2131320682">+213 132 0682</a><br>✉️ <a href="mailto:goutsia@eetaa.gr">goutsia@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG006" class="card"><strong>Δημάκη Ελένη</strong><br>Κωδικός: ELG006<br><br>📞 <a href="tel:+2131320739">+213 132 0739</a><br>✉️ <a href="mailto:dimaki@eetaa.gr">dimaki@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG007" class="card"><strong>Δόμβρη Ελένη</strong><br>Κωδικός: ELG007<br><br>📞 <a href="tel:+2310544714">+2310 544 714</a><br>✉️ <a href="mailto:domvri@eetaa.gr">domvri@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG008" class="card"><strong>Ευφραιμίδου Γαλήνη</strong><br>Κωδικός: ELG008<br><br>📞 <a href="tel:+2310544714">+2310 544 714</a><br>✉️ <a href="mailto:galini@eetaa.gr">galini@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG009" class="card"><strong>Ηλιοπούλου Κωνσταντίνα</strong><br>Κωδικός: ELG009<br><br>📞 <a href="tel:+2131320755">+213 132 0755</a><br>✉️ <a href="mailto:nilio@eetaa.gr">nilio@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG010" class="card"><strong>Καλλές Θεόδωρος</strong><br>Κωδικός: ELG010<br><br>📞 <a href="tel:+2131320757">+213 132 0757</a><br>✉️ <a href="mailto:kalles@eetaa.gr">kalles@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG011" class="card"><strong>Καρβελάς Κωνσταντίνος</strong><br>Κωδικός: ELG011<br><br>📞 <a href="tel:+2131320723">+213 132 0723</a><br>✉️ <a href="mailto:kkarv@eetaa.gr">kkarv@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG012" class="card"><strong>Κόντου Ζωή</strong><br>Κωδικός: ELG012<br><br>📞 <a href="tel:+2131320645">+213 132 0645</a><br>✉️ <a href="mailto:kondou@eetaa.gr">kondou@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG013" class="card"><strong>Κουνενής Λάμπρος</strong><br>Κωδικός: ELG013<br><br>📞 <a href="tel:+2131320633">+213 132 0633</a><br>✉️ <a href="mailto:lkoun@eetaa.gr">lkoun@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG014" class="card"><strong>Κουλοχέρη Μαρία</strong><br>Κωδικός: ELG014<br><br>📞 <a href="tel:+2410579220">+2410 579 220</a><br>✉️ <a href="mailto:koulocheri@eetaa.gr">koulocheri@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG015" class="card"><strong>Μιχαηλίδου Κατερίνα</strong><br>Κωδικός: ELG015<br><br>📞 <a href="tel:+2310544714">+2310 544 714</a><br>✉️ <a href="mailto:mihailidou@eetaa.gr">mihailidou@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG016" class="card"><strong>Μπίτης Νικόλαος</strong><br>Κωδικός: ELG016<br><br>📞 <a href="tel:+2410579220">+2410 579 220</a><br>✉️ <a href="mailto:nbitis@eetaa.gr">nbitis@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG017" class="card"><strong>Παπαπαναγιώτου Κωνσταντίνος</strong><br>Κωδικός: ELG017<br><br>📞 <a href="tel:+2131320676">+213 132 0676</a><br>✉️ <a href="mailto:papapanagiotou@eetaa.gr">papapanagiotou@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG018" class="card"><strong>Σαλτζίδου Θεοφανεία</strong><br>Κωδικός: ELG018<br><br>📞 <a href="tel:+2310544714">+2310 544 714</a><br>✉️ <a href="mailto:fsaltzidou@eetaa.gr">fsaltzidou@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG019" class="card"><strong>Σούρτζης Γεώργιος</strong><br>Κωδικός: ELG019<br><br>📞 <a href="tel:+2410579220">+2410 579 220</a><br>✉️ <a href="mailto:sourtzis@eetaa.gr">sourtzis@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-<div id="ELG020" class="card"><strong>Τσιρώνης Νικόλαος</strong><br>Κωδικός: ELG020<br><br>📞 <a href="tel:+2131320658">+213 132 0658</a><br>✉️ <a href="mailto:ntsir@eetaa.gr">ntsir@eetaa.gr</a><br><button class="btn" onclick="openModal()">📄 Απόφαση Ορισμού</button></div>
-
-</div>
+<div class="container" id="container"></div>
 
 <!-- MODAL -->
-<div id="pdfModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img src="apofasi_orismou.jpg" alt="Απόφαση Ορισμού">
-  </div>
+
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img src="apofasi_orismou.jpg">
 </div>
 
 <script>
 
+const data = [
+["ELG001","Προμπονάς Ανδρέας","2131320683","promponas@eetaa.gr"],
+["ELG002","Αμοιρίδου Στέλλα","2310544714","amiridou@eetaa.gr"],
+["ELG003","Βαλάκας Χρήστος","2410579220","valakas@eetaa.gr"],
+["ELG004","Γεωργίου Αλέξανδρος","2131320762","ageo@eetaa.gr"],
+["ELG005","Γκούτσια Ευαγγελία","2131320682","goutsia@eetaa.gr"],
+["ELG006","Δημάκη Ελένη","2131320739","dimaki@eetaa.gr"],
+["ELG007","Δόμβρη Ελένη","2310544714","domvri@eetaa.gr"],
+["ELG008","Ευφραιμίδου Γαλήνη","2310544714","galini@eetaa.gr"],
+["ELG009","Ηλιοπούλου Κωνσταντίνα","2131320755","nilio@eetaa.gr"],
+["ELG010","Καλλές Θεόδωρος","2131320751","kalles@eetaa.gr"],
+["ELG011","Καρβελάς Κωνσταντίνος","2131320723","kkarv@eetaa.gr"],
+["ELG012","Κόντου Ζωή","2131320645","kondou@eetaa.gr"],
+["ELG013","Κουνενής Λάμπρος","2131320633","lkoun@eetaa.gr"],
+["ELG014","Κουλοχέρη Μαρία","2410579220","koulocheri@eetaa.gr"],
+["ELG015","Μιχαηλίδου Κατερίνα","2310544714","mihailidou@eetaa.gr"],
+["ELG016","Μπίτης Νικόλαος","2410579220","nbitis@eetaa.gr"],
+["ELG017","Παπαπαναγιώτου Κωνσταντίνος","2131320676","papapanagiotou@eetaa.gr"],
+["ELG018","Σαλτζίδου Θεοφανεία","2310544714","fsaltzidou@eetaa.gr"],
+["ELG019","Σούρτζης Γεώργιος","2410579220","sourtzis@eetaa.gr"],
+["ELG020","Τσιρώνης Νικόλαος","2131320658","ntsir@eetaa.gr"]
+];
+
+const container = document.getElementById("container");
+
+/* CREATE CARDS */
+data.forEach(e => {
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.id = e[0];
+
+  card.innerHTML = `
+    <div class="left">
+      <img src="eetaa_logo.png" class="logo">
+      <button class="btn" onclick="openModal()">Απόφαση</button>
+    </div>
+
+    <div class="info">
+      <div class="name">${e[1]}</div>
+      <div class="code">${e[0]}</div>
+
+      <div class="contact">
+        📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
+        ✉️ <a href="mailto:${e[3]}">${e[3]}</a>
+      </div>
+    </div>
+  `;
+
+  container.appendChild(card);
+});
+
 /* SEARCH */
-function searchFunction() {
-  const input = document.getElementById("searchInput");
-  const filter = input.value.toLowerCase();
-  const cards = document.getElementsByClassName("card");
-
-  for (let i = 0; i < cards.length; i++) {
-    let text = cards[i].innerText.toLowerCase();
-    cards[i].style.display = text.includes(filter) ? "" : "none";
-  }
-}
-
-/* QR AUTO FOCUS */
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-
-if(id){
-  const el = document.getElementById(id);
-  if(el){
-    el.scrollIntoView({behavior: "smooth", block: "center"});
-    el.classList.add("highlight");
-  }
+function search() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display = card.innerText.toLowerCase().includes(input) ? "flex" : "none";
+  });
 }
 
 /* MODAL */
-function openModal(){
-  document.getElementById("pdfModal").style.display = "block";
+function openModal() {
+  document.getElementById("modal").classList.add("show");
 }
 
-function closeModal(){
-  document.getElementById("pdfModal").style.display = "none";
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
 }
 
-window.onclick = function(event){
-  const modal = document.getElementById("pdfModal");
-  if(event.target == modal){
-    modal.style.display = "none";
+/* QR FOCUS MODE */
+window.onload = function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (id) {
+    const target = document.getElementById(id);
+
+    if (target) {
+      target.classList.add("highlight");
+
+      document.querySelectorAll(".card").forEach(c => {
+        if (c.id !== id) c.style.display = "none";
+      });
+
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
-}
+};
 
 </script>
 
