@@ -81,6 +81,11 @@ body {
   font-weight: bold;
 }
 
+.code {
+  font-size: 12px;
+  color: #777;
+}
+
 .contact {
   margin-top: 10px;
 }
@@ -124,7 +129,6 @@ a {
   box-sizing: border-box;
 }
 
-/* image fit */
 .modal img {
   max-width: 100%;
   max-height: 85vh;
@@ -163,18 +167,18 @@ a {
   </div>
 </div>
 
-<!-- MODAL GDPR -->
+<!-- GDPR MODAL -->
 <div id="gdprModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeGdpr()">&times;</span>
 
     <b>Πληροφορίες Προσωπικών Δεδομένων</b><br><br>
 
-    Τα στοιχεία (ονοματεπώνυμο, υπηρεσιακό τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία.<br><br>
+    Τα στοιχεία (ονοματεπώνυμο, τηλέφωνο, email) χρησιμοποιούνται αποκλειστικά για υπηρεσιακή επικοινωνία.<br><br>
 
     Η επεξεργασία γίνεται σύμφωνα με τον ΓΚΠΔ (ΕΕ 2016/679).<br><br>
 
-    Δεν συλλέγονται δεδομένα επισκεπτών και δεν χρησιμοποιούνται cookies ή analytics.<br><br>
+    Δεν γίνεται συλλογή δεδομένων επισκεπτών.<br><br>
 
     DPO: dpo@eetaa.gr | 213-1320701
   </div>
@@ -194,7 +198,6 @@ const data = [
 
 const container = document.getElementById("container");
 
-/* cards */
 data.forEach(e => {
 
   const card = document.createElement("div");
@@ -210,6 +213,7 @@ data.forEach(e => {
 
     <div class="info">
       <div class="name">${e[1]}</div>
+      <div class="code">${e[0]}</div>
 
       <div class="contact">
         📞 <a href="tel:+30${e[2]}">${e[2]}</a><br>
@@ -256,45 +260,31 @@ document.addEventListener("keydown", e => {
 });
 
 /* =========================
-   🔥 STABLE QR FOCUS FIX
+   QR FOCUS (STABLE SIMPLE VERSION)
 ========================= */
 
-function qrFocus() {
+window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  if (!id) return;
+  if (id) {
+    const target = document.getElementById(id);
 
-  let tries = 0;
-
-  const interval = setInterval(() => {
-
-    const el = document.getElementById(id);
-
-    if (el) {
-      el.classList.add("highlight");
+    if (target) {
+      target.classList.add("highlight");
 
       document.querySelectorAll(".card").forEach(c => {
         if (c.id !== id) c.style.display = "none";
       });
 
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-
-      clearInterval(interval);
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
     }
-
-    tries++;
-    if (tries > 25) clearInterval(interval);
-
-  }, 100);
-}
-
-window.addEventListener("load", qrFocus);
+  }
+};
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
