@@ -29,7 +29,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const token = params.get("token");
 
-const data = window.ELEGKTES[id];
+const data = window.ELEGKTES?.[id];
 
 const box = document.getElementById("box");
 
