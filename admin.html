@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>Admin Tool v4 (Production)</title>
+
+<script src="data.js"></script>
+<script src="data-layer.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  max-width: 650px;
+  margin: auto;
+  padding: 20px;
+  background: #fafafa;
+}
+
+h2 { text-align:center; }
+
+.tabs {
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.tab {
+  flex:1;
+  padding:12px;
+  text-align:center;
+  cursor:pointer;
+  background:#ddd;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.active { background:#333; color:white; }
+
+.card {
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+input {
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.primary { background:#2d7ef7; color:white; }
+.success { background:#2eaf5f; color:white; }
+.warning { background:#f39c12; color:white; }
+.danger { background:#c0392b; color:white; }
+
+.locked { background:#eee; }
+
+.small {
+  font-size:12px;
+  word-break:break-all;
+  margin-top:10px;
+  color:#555;
+}
+
+.hidden { display:none; }
+</style>
+</head>
+
+<body>
+
+<h2>Admin Tool v4</h2>
+
+<div class="tabs">
+  <div class="tab active" onclick="setMode('create')">Δημιουργία</div>
+  <div class="tab" onclick="setMode('update')">Ενημέρωση</div>
+</div>
+
+<!-- ================= CREATE ================= -->
+<div id="create" class="card">
+
+<h3>➕ Νέος Ελεγκτής</h3>
+
+<input id="c_id" placeholder="ID (π.χ. ELG001)">
+<input id="c_name" placeholder="Ονοματεπώνυμο">
+<input id="c_phone" placeholder="Τηλέφωνο">
+<input id="c_email" placeholder="Email">
+<input id="c_decision" placeholder="Απόφαση (path)">
+
+<button class="success" onclick="createInspector()">Δημιουργία</button>
+
+<button class="primary" onclick="copyQR()">Copy QR Link</button>
+<button onclick="copyJSON()">Copy JSON</button>
+
+<div class="small" id="createQR"></div>
+
+</div>
+
+<!-- ================= UPDATE ================= -->
+<div id="update" class="card hidden">
+
+<h3>✏️ Ενημέρωση Ελεγκτή</h3>
+
+<input id="u_id" placeholder="ID">
+
+<button class="primary" onclick="loadInspector()">Φόρτωση</button>
+
+<input id="u_name">
+<input id="u_phone">
+<input id="u_email">
+<input id="u_decision">
+
+<input id="u_token" class="locked" readonly>
+
+<button class="success" onclick="updateInspector()">Αποθήκευση</button>
+<button class="warning" onclick="regenerateToken()">Regenerate Token</button>
+
+<button onclick="copyJSON()">Copy JSON</button>
+
+</div>
+
+<script>
+
+let mode = "create";
+
+// ================= MODE SWITCH =================
+function setMode(m){
+  mode = m;
+
+  document.getElementById("create").classList.toggle("hidden", m !== "create");
+  document.getElementById("update").classList.toggle("hidden", m !== "update");
+
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+// ================= TOKEN =================
+function generateToken(){
+  return Math.random().toString(36).substring(2,10);
+}
+
+// ================= CREATE =================
+function createInspector(){
+
+  const id = c_id.value.trim();
+
+  if(!id) return alert("Βάλε ID");
+  if(window.ELEGKTES[id]) return alert("Υπάρχει ήδη");
+
+  let token;
+
+  do {
+    token = generateToken();
+  } while (Object.values(window.ELEGKTES).some(e => e.token === token));
+
+  window.ELEGKTES[id] = {
+    name:c_name.value,
+    phone:c_phone.value,
+    email:c_email.value,
+    decision:c_decision.value,
+    token
+  };
+
+  saveData();
+
+  const url = buildQR(id, token);
+
+  createQR.innerText = url;
+}
+
+// ================= LOAD =================
+function loadInspector(){
+
+  const id = u_id.value.trim();
+  const d = window.ELEGKTES[id];
+
+  if(!d) return alert("Δεν βρέθηκε");
+
+  u_name.value = d.name;
+  u_phone.value = d.phone;
+  u_email.value = d.email;
+  u_decision.value = d.decision;
+  u_token.value = d.token;
+}
+
+// ================= UPDATE =================
+function updateInspector(){
+
+  const id = u_id.value.trim();
+  if(!window.ELEGKTES[id]) return alert("Δεν υπάρχει");
+
+  const token = window.ELEGKTES[id].token;
+
+  window.ELEGKTES[id] = {
+    name:u_name.value,
+    phone:u_phone.value,
+    email:u_email.value,
+    decision:u_decision.value,
+    token
+  };
+
+  saveData();
+
+  alert("✔ Ενημερώθηκε");
+}
+
+// ================= REGENERATE =================
+function regenerateToken(){
+
+  const id = u_id.value.trim();
+  if(!window.ELEGKTES[id]) return;
+
+  if(!confirm("Θα ακυρωθεί το παλιό QR")) return;
+
+  let token;
+
+  do {
+    token = generateToken();
+  } while (Object.values(window.ELEGKTES).some(e => e.token === token));
+
+  window.ELEGKTES[id].token = token;
+
+  saveData();
+
+  u_token.value = token;
+
+  alert("✔ νέο token");
+}
+
+// ================= QR =================
+function buildQR(id, token){
+  return `https://lamprosdf12.github.io/elegktes/?id=${id}&token=${token}`;
+}
+
+// ================= COPY QR =================
+function copyQR(){
+
+  if(mode !== "create") return;
+
+  const id = c_id.value.trim();
+  const t = window.ELEGKTES[id]?.token;
+
+  if(!t) return alert("Δεν υπάρχει");
+
+  navigator.clipboard.writeText(buildQR(id, t));
+
+  alert("✔ QR copied");
+}
+
+// ================= COPY JSON =================
+function copyJSON(){
+
+  const id = mode === "create" ? c_id.value : u_id.value;
+
+  if(!window.ELEGKTES[id]) return alert("Δεν υπάρχει");
+
+  navigator.clipboard.writeText(JSON.stringify({[id]:window.ELEGKTES[id]},null,2));
+
+  alert("✔ JSON copied");
+}
+
+</script>
+
+</body>
+</html>
